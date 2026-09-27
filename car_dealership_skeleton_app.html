@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Dealership - Auto Feed</title>
+    
+    <style>
+        /* CSS RESET & CUSTOM PROPERTIES */
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --header-bg: #0f172a;
+            --header-text: #ffffff;
+            --footer-bg: #0f172a;
+            --footer-text: #94a3b8;
+            --radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--header-text);
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .brand-logo img {
+            max-height: 36px;
+            border-radius: 4px;
+        }
+
+        nav {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: #cbd5e1;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-btn.active {
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        /* MAIN LAYOUT & CONTAINER */
+        main {
+            flex: 1;
+            padding: 1.25rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .view-section {
+            display: none;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HERO & INTRO BLOCK */
+        .intro-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #ffffff;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .intro-banner h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-banner p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* CONTROLS (SEARCH & SORT) */
+        .feed-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            background-color: var(--card-bg);
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .control-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        input[type="text"], input[type="email"], input[type="color"], select, textarea {
+            width: 100%;
+            padding: 0.65rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background-color: #ffffff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid var(--secondary-color);
+            border-color: transparent;
+        }
+
+        /* CAR GRID & CARDS */
+        .car-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+        }
+
+        .car-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .car-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        .car-image-container {
+            width: 100%;
+            height: 200px;
+            background-color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .car-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .car-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+
+        .car-details {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .car-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .car-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            padding: 0.5rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .car-spec-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .car-price {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-top: 0.25rem;
+        }
+
+        /* SINGLE CAR DETAIL VIEW */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .single-car-container {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .single-car-gallery {
+            width: 100%;
+            max-height: 400px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+
+        .single-car-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin: 1rem 0;
+            background-color: var(--bg-color);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .spec-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spec-box span:first-child {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .spec-box span:last-child {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* ABOUT PAGE */
+        .about-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            align-items: center;
+            text-align: center;
+        }
+
+        .about-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+        }
+
+        .about-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .about-content h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* ADMIN DASHBOARD */
+        .admin-panel {
+            background-color: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+        }
+
+        .admin-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .color-pickers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-sync {
+            background-color: #059669;
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-sync:hover {
+            background-color: #047857;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 2rem 1rem;
+            margin-top: auto;
+            font-size: 0.9rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .footer-info h3 {
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .status-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #10b981;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            font-weight: 600;
+        }
+
+        /* MEDIA QUERIES (DESKTOP ENHANCEMENTS) */
+        @media (min-width: 768px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            nav {
+                width: auto;
+            }
+
+            .intro-banner h1 {
+                font-size: 2rem;
+            }
+
+            .feed-controls {
+                flex-direction: row;
+                align-items: flex-end;
+            }
+
+            .control-group {
+                flex: 1;
+            }
+
+            .car-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .specs-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .about-card {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .color-pickers {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .car-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="brand-logo" onclick="navigateTo('home'); return false;">
+                <img id="headerLogo" src="https://placehold.co/120x40/1e3a8a/ffffff?text=AUTO+DEALER" alt="Dealership Logo">
+                <span id="headerTitle">Auto Dealer</span>
+            </a>
+            <nav>
+                <button class="nav-btn active" id="navHome" onclick="navigateTo('home')">Cars</button>
+                <button class="nav-btn" id="navAbout" onclick="navigateTo('about')">About Us</button>
+                <button class="nav-btn" id="navAdmin" onclick="navigateTo('admin')">Admin Dashboard</button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HOME / CAR FEED VIEW -->
+        <section id="viewHome" class="view-section active-view">
+            <div class="intro-banner">
+                <h1 id="bannerTitle">Quality Pre-Owned Vehicles</h1>
+                <p id="bannerText">Browse our latest inventory imported directly from BilInfo.</p>
+            </div>
+
+            <div class="feed-controls">
+                <div class="control-group">
+                    <label for="searchInput">Search Vehicles</label>
+                    <input type="text" id="searchInput" placeholder="e.g. Audi A4, BMW..." oninput="filterAndSortCars()">
+                </div>
+                <div class="control-group">
+                    <label for="sortSelect">Sort By</label>
+                    <select id="sortSelect" onchange="filterAndSortCars()">
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="year-desc">Year: Newest First</option>
+                        <option value="km-asc">Mileage: Lowest First</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="carGrid" class="car-grid">
+                <!-- Dynamically populated car cards -->
+            </div>
+        </section>
+
+        <!-- SINGLE CAR DETAIL VIEW -->
+        <section id="viewDetail" class="view-section">
+            <button class="back-btn" onclick="navigateTo('home')">← Back to Vehicles</button>
+            <div id="singleCarContent">
+                <!-- Dynamically filled car detail -->
+            </div>
+        </section>
+
+        <!-- ABOUT US VIEW -->
+        <section id="viewAbout" class="view-section">
+            <div class="about-card">
+                <img id="aboutImage" class="about-avatar" src="https://placehold.co/200/1e3a8a/ffffff?text=Owner" alt="Owner Profile">
+                <div class="about-content">
+                    <h2 id="aboutOwnerName">John Doe</h2>
+                    <h4 id="aboutTitle">Dealership Owner</h4>
+                    <p id="aboutText">Welcome to our dealership! We pride ourselves on offering reliable, hand-picked pre-owned vehicles with complete service records.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN DASHBOARD VIEW -->
+        <section id="viewAdmin" class="view-section">
+            <div class="admin-panel">
+                <h2>Site Configuration & Settings</h2>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Changes made here will immediately update the live website settings.</p>
+
+                <form id="adminForm" onsubmit="saveConfig(event)">
+                    <div class="admin-section">
+                        <h3>Branding & Styling</h3>
+                        <div class="color-pickers" style="margin-bottom: 1rem;">
+                            <div class="control-group">
+                                <label for="cfgPrimaryColor">Primary Theme Color</label>
+                                <input type="color" id="cfgPrimaryColor" value="#1e3a8a">
+                            </div>
+                            <div class="control-group">
+                                <label for="cfgSecondaryColor">Secondary Accent Color</label>
+                                <input type="color" id="cfgSecondaryColor" value="#3b82f6">
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="control-group">
+                                <label for="cfgSiteTitle">Dealership Name</label>
+                                <input type="text" id="cfgSiteTitle">
+                            </div>
+                            <div class="control-group">
+                                <label for="cfgLogoUrl">Logo Image URL</label>
+                                <input type="text" id="cfgLogoUrl">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3>Home View Content</h3>
+                        <div class="form-grid">
+                            <div class="control-group">
+                                <label for="cfgBannerTitle">Banner Heading</label>
+                                <input type="text" id="cfgBannerTitle">
+                            </div>
+                            <div class="control-group">
+                                <label for="cfgBannerText">Banner Description</label>
+                                <textarea id="cfgBannerText" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3>About Us Page Configuration</h3>
+                        <div class="form-grid">
+                            <div class="control-group">
+                                <label for="cfgOwnerName">Owner Name</label>
+                                <input type="text" id="cfgOwnerName">
+                            </div>
+                            <div class="control-group">
+                                <label for="cfgOwnerPhoto">Profile Image URL</label>
+                                <input type="text" id="cfgOwnerPhoto">
+                            </div>
+                            <div class="control-group" style="grid-column: 1 / -1;">
+                                <label for="cfgAboutText">Introduction Bio Text</label>
+                                <textarea id="cfgAboutText" rows="4"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h3>Contact Information (Footer & About)</h3>
+                        <div class="form-grid">
+                            <div class="control-group">
+                                <label for="cfgPhone">Phone Number</label>
+                                <input type="text" id="cfgPhone">
+                            </div>
+                            <div class="control-group">
+                                <label for="cfgEmail">Email Address</label>
+                                <input type="email" id="cfgEmail">
+                            </div>
+                            <div class="control-group" style="grid-column: 1 / -1;">
+                                <label for="cfgAddress">Address</label>
+                                <input type="text" id="cfgAddress">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Save Configuration</button>
+                </form>
+
+                <div class="admin-section" style="margin-top: 2rem; border-bottom: none;">
+                    <h3>BilInfo Integration Sync</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Trigger a manual API refresh to pull the latest car feed and reconstruct cached site assets.</p>
+                    <button class="btn-sync" onclick="syncBilInfoFeed()">
+                        🔄 Reconstruct Site & Sync BilInfo Feed
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-info">
+                <h3 id="footerDealershipName">Auto Dealer</h3>
+                <p id="footerAddress">123 Auto Street, Copenhagen</p>
+            </div>
+            <div class="footer-contacts">
+                <p><strong>Phone:</strong> <span id="footerPhone">+45 12 34 56 78</span></p>
+                <p><strong>Email:</strong> <span id="footerEmail">info@autodealer.dk</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="status-toast">Settings Saved Successfully!</div>
+
+    <script>
+        /* DEFAULT SITE CONFIGURATION OBJECT */
+        const defaultConfig = {
+            siteTitle: "Nordic Auto House",
+            logoUrl: "https://placehold.co/120x40/1e3a8a/ffffff?text=NORDIC+AUTO",
+            primaryColor: "#1e3a8a",
+            secondaryColor: "#3b82f6",
+            bannerTitle: "Premium Selected Vehicles",
+            bannerText: "Explore our real-time feed of quality tested cars directly synced with BilInfo.",
+            ownerName: "Lars Mikkelsen",
+            ownerPhoto: "https://placehold.co/200/1e3a8a/ffffff?text=Lars+Mikkelsen",
+            aboutText: "With over 15 years in the automotive industry, I ensure every vehicle in our inventory undergoes strict quality checks before being put up for sale.",
+            contactPhone: "+45 88 77 66 55",
+            contactEmail: "sales@nordicautohouse.dk",
+            contactAddress: "Autovej 14, 8000 Aarhus C"
+        };
+
+        /* SIMULATED BILINFO API FEED DATA */
+        const sampleCarsFeed = [
+            {
+                id: "car-101",
+                make: "Audi",
+                model: "A4 2.0 TFSI",
+                year: 2021,
+                price: 285000,
+                km: 45000,
+                fuel: "Petrol",
+                gearbox: "Automatic",
+                color: "Mythos Black",
+                image: "https://placehold.co/600x400/1e293b/ffffff?text=Audi+A4+2021",
+                description: "Immaculate condition Audi A4 with full service history. Features include adaptive cruise control, leather seats, and digital cockpit."
+            },
+            {
+                id: "car-102",
+                make: "BMW",
+                model: "320d Touring",
+                year: 2020,
+                price: 265000,
+                km: 68000,
+                fuel: "Diesel",
+                gearbox: "Automatic",
+                color: "Alpine White",
+                image: "https://placehold.co/600x400/334155/ffffff?text=BMW+320d+Touring",
+                description: "Spacious estate car ideal for long trips. Features M-Sport package, panoramic roof, and tow bar."
+            },
+            {
+                id: "car-103",
+                make: "Volkswagen",
+                model: "Golf VIII 1.5 eTSI",
+                year: 2022,
+                price: 220000,
+                km: 22000,
+                fuel: "Mild Hybrid",
+                gearbox: "Automatic",
+                color: "Dolphin Grey",
+                image: "https://placehold.co/600x400/0f172a/ffffff?text=VW+Golf+VIII",
+                description: "Compact and extremely economical hybrid hatchback. Comes with balance of factory warranty remaining."
+            },
+            {
+                id: "car-104",
+                make: "Volvo",
+                model: "XC60 B4 AWD",
+                year: 2019,
+                price: 340000,
+                km: 82000,
+                fuel: "Diesel",
+                gearbox: "Automatic",
+                color: "Onyx Black",
+                image: "https://placehold.co/600x400/1e3a8a/ffffff?text=Volvo+XC60+AWD",
+                description: "Safe and luxurious SUV with all-wheel drive. Heated steering wheel, Harman Kardon sound system, and Pilot Assist."
+            }
+        ];
+
+        let currentConfig = {};
+        let activeCarsList = [...sampleCarsFeed];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadConfig();
+            renderConfigInDOM();
+            filterAndSortCars();
+            populateAdminForm();
+        });
+
+        /* CONFIGURATION MANAGEMENT */
+        function loadConfig() {
+            const stored = localStorage.getItem('dealer_app_config');
+            if (stored) {
+                try {
+                    currentConfig = { ...defaultConfig, ...JSON.parse(stored) };
+                } catch (e) {
+                    currentConfig = { ...defaultConfig };
+                }
+            } else {
+                currentConfig = { ...defaultConfig };
+            }
+        }
+
+        function renderConfigInDOM() {
+            // Apply CSS Variable dynamic theme colors
+            document.documentElement.style.setProperty('--primary-color', currentConfig.primaryColor);
+            document.documentElement.style.setProperty('--secondary-color', currentConfig.secondaryColor);
+
+            // Branding
+            document.getElementById('headerTitle').textContent = currentConfig.siteTitle;
+            document.getElementById('headerLogo').src = currentConfig.logoUrl;
+            document.getElementById('footerDealershipName').textContent = currentConfig.siteTitle;
+
+            // Banner
+            document.getElementById('bannerTitle').textContent = currentConfig.bannerTitle;
+            document.getElementById('bannerText').textContent = currentConfig.bannerText;
+
+            // About Us
+            document.getElementById('aboutOwnerName').textContent = currentConfig.ownerName;
+            document.getElementById('aboutImage').src = currentConfig.ownerPhoto;
+            document.getElementById('aboutText').textContent = currentConfig.aboutText;
+
+            // Contacts
+            document.getElementById('footerPhone').textContent = currentConfig.contactPhone;
+            document.getElementById('footerEmail').textContent = currentConfig.contactEmail;
+            document.getElementById('footerAddress').textContent = currentConfig.contactAddress;
+        }
+
+        /* ROUTING ENGINE */
+        function navigateTo(viewName, carId = null) {
+            document.querySelectorAll('.view-section').forEach(view => {
+                view.classList.remove('active-view');
+            });
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            if (viewName === 'home') {
+                document.getElementById('viewHome').classList.add('active-view');
+                document.getElementById('navHome').classList.add('active');
+            } else if (viewName === 'about') {
+                document.getElementById('viewAbout').classList.add('active-view');
+                document.getElementById('navAbout').classList.add('active');
+            } else if (viewName === 'admin') {
+                document.getElementById('viewAdmin').classList.add('active-view');
+                document.getElementById('navAdmin').classList.add('active');
+            } else if (viewName === 'detail' && carId) {
+                renderSingleCarView(carId);
+                document.getElementById('viewDetail').classList.add('active-view');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* CAR FEED FILTER & SORT ENGINE */
+        function filterAndSortCars() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const sortBy = document.getElementById('sortSelect').value;
+
+            // Filter
+            let filtered = sampleCarsFeed.filter(car => {
+                const searchStr = `${car.make} ${car.model} ${car.year} ${car.fuel}`.toLowerCase();
+                return searchStr.includes(query);
+            });
+
+            // Sort
+            filtered.sort((a, b) => {
+                if (sortBy === 'price-asc') return a.price - b.price;
+                if (sortBy === 'price-desc') return b.price - a.price;
+                if (sortBy === 'year-desc') return b.year - a.year;
+                if (sortBy === 'km-asc') return a.km - b.km;
+                return 0;
+            });
+
+            renderCarGrid(filtered);
+        }
+
+        function renderCarGrid(cars) {
+            const grid = document.getElementById('carGrid');
+            grid.innerHTML = '';
+
+            if (cars.length === 0) {
+                grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding: 2rem; color: var(--text-muted);">No cars match your search criteria.</p>';
+                return;
+            }
+
+            cars.forEach(car => {
+                const card = document.createElement('div');
+                card.className = 'car-card';
+                card.onclick = () => navigateTo('detail', car.id);
+
+                card.innerHTML = `
+                    <div class="car-image-container">
+                        <img src="${car.image}" alt="${car.make} ${car.model}" loading="lazy">
+                        <span class="car-badge">${car.year}</span>
+                    </div>
+                    <div class="car-details">
+                        <div class="car-title">${car.make} ${car.model}</div>
+                        <div class="car-specs">
+                            <span class="car-spec-item">🛣️ ${car.km.toLocaleString()} km</span>
+                            <span class="car-spec-item">⛽ ${car.fuel}</span>
+                            <span class="car-spec-item">⚙️ ${car.gearbox}</span>
+                        </div>
+                        <div class="car-price">${car.price.toLocaleString()} DKK</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* DYNAMIC SINGLE CAR VIEW RENDERER */
+        function renderSingleCarView(carId) {
+            const car = sampleCarsFeed.find(c => c.id === carId);
+            const container = document.getElementById('singleCarContent');
+
+            if (!car) {
+                container.innerHTML = '<p>Car not found.</p>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="single-car-container">
+                    <div class="single-car-gallery">
+                        <img src="${car.image}" alt="${car.make} ${car.model}">
+                    </div>
+                    <h2>${car.make} ${car.model} (${car.year})</h2>
+                    <p class="car-price" style="font-size: 1.75rem; margin-top: 0.5rem;">${car.price.toLocaleString()} DKK</p>
+                    
+                    <div class="specs-grid">
+                        <div class="spec-box"><span>Mileage</span><span>${car.km.toLocaleString()} km</span></div>
+                        <div class="spec-box"><span>Fuel Type</span><span>${car.fuel}</span></div>
+                        <div class="spec-box"><span>Transmission</span><span>${car.gearbox}</span></div>
+                        <div class="spec-box"><span>Color</span><span>${car.color}</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 1.25rem;">Vehicle Description</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">${car.description}</p>
+
+                    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                        <button class="btn-primary" onclick="alert('Inquiry sent for ${car.make} ${car.model}. Contact us at ${currentConfig.contactPhone}')">Contact Dealer About This Vehicle</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        /* ADMIN FORM HANDLERS */
+        function populateAdminForm() {
+            document.getElementById('cfgPrimaryColor').value = currentConfig.primaryColor;
+            document.getElementById('cfgSecondaryColor').value = currentConfig.secondaryColor;
+            document.getElementById('cfgSiteTitle').value = currentConfig.siteTitle;
+            document.getElementById('cfgLogoUrl').value = currentConfig.logoUrl;
+            document.getElementById('cfgBannerTitle').value = currentConfig.bannerTitle;
+            document.getElementById('cfgBannerText').value = currentConfig.bannerText;
+            document.getElementById('cfgOwnerName').value = currentConfig.ownerName;
+            document.getElementById('cfgOwnerPhoto').value = currentConfig.ownerPhoto;
+            document.getElementById('cfgAboutText').value = currentConfig.aboutText;
+            document.getElementById('cfgPhone').value = currentConfig.contactPhone;
+            document.getElementById('cfgEmail').value = currentConfig.contactEmail;
+            document.getElementById('cfgAddress').value = currentConfig.contactAddress;
+        }
+
+        function saveConfig(event) {
+            event.preventDefault();
+            
+            currentConfig.primaryColor = document.getElementById('cfgPrimaryColor').value;
+            currentConfig.secondaryColor = document.getElementById('cfgSecondaryColor').value;
+            currentConfig.siteTitle = document.getElementById('cfgSiteTitle').value;
+            currentConfig.logoUrl = document.getElementById('cfgLogoUrl').value;
+            currentConfig.bannerTitle = document.getElementById('cfgBannerTitle').value;
+            currentConfig.bannerText = document.getElementById('cfgBannerText').value;
+            currentConfig.ownerName = document.getElementById('cfgOwnerName').value;
+            currentConfig.ownerPhoto = document.getElementById('cfgOwnerPhoto').value;
+            currentConfig.aboutText = document.getElementById('cfgAboutText').value;
+            currentConfig.contactPhone = document.getElementById('cfgPhone').value;
+            currentConfig.contactEmail = document.getElementById('cfgEmail').value;
+            currentConfig.contactAddress = document.getElementById('cfgAddress').value;
+
+            localStorage.setItem('dealer_app_config', JSON.stringify(currentConfig));
+            renderConfigInDOM();
+            showToast("Settings saved & site reconstructed!");
+        }
+
+        function syncBilInfoFeed() {
+            showToast("Syncing with BilInfo API...");
+            setTimeout(() => {
+                filterAndSortCars();
+                showToast("Feed refreshed from BilInfo endpoint!");
+            }, 800);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
