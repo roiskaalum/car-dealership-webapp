@@ -12,24 +12,20 @@
   <body>
     <header class="topbar">
       <div class="container topbar-inner">
-        <div class="brand-wrap">
-          <a class="home-link" href="index.html" aria-label="Til forsiden">🏠</a>
-          <a class="brand" href="index.html" aria-label="Krathman">
-            <img src="../images/logo.jpg" alt="Krathman logo" />
-            <span data-config="siteTitle">Krathman</span>
-          </a>
-        </div>
+        <a class="brand" href="index.html" aria-label="Krathman">
+          <img src="../images/logo.jpg" alt="Krathman logo" />
+          <span data-config="siteTitle">Krathman</span>
+        </a>
 
         <nav class="main-nav" aria-label="Hovednavigation">
-          <a href="index.html">Home</a>
+          <a class="nav-home" href="index.html" aria-label="Til forsiden">🏠</a>
           <a href="biler.html">Biler</a>
           <a href="om-os-kontakt.html" class="active">Om Os &amp; Kontakt</a>
         </nav>
 
         <div class="nav-tools">
-          <a class="phone-pill" href="tel:+4586628545" aria-label="Ring os">
-            <span class="phone-icon">☎</span>
-            <span data-config="contactPhone">+45 86 62 85 45</span>
+          <a class="phone-pill" href="#kontakt-os" aria-label="Kontakt os">
+            <span class="phone-icon" aria-hidden="true">📞</span>
           </a>
           <button class="theme-toggle" id="themeToggle" aria-label="Skift farvetema">
             <span class="toggle-icon">☀️</span>
@@ -48,6 +44,7 @@
             <p data-config="aboutText">
               Krathmand er din leverandør af kvalitetsbiler i alle aldre.
             </p>
+            <p class="owner-name" data-config="ownerName">Kurt Krathmand</p>
           </div>
 
           <div class="story-image">
@@ -56,7 +53,7 @@
         </div>
       </section>
 
-      <section class="contact-banner contact-page-band">
+      <section class="contact-banner contact-page-band" id="kontakt-os">
         <div class="container contact-layout">
           <div class="contact-copy-block">
             <p class="small-kicker">Kontakt</p>
@@ -85,39 +82,6 @@
         </div>
       </section>
 
-      <section class="contact-form-section">
-        <div class="container contact-form-wrap">
-          <div class="contact-form-head">
-            <p class="small-kicker">Send en forespørgsel</p>
-            <h3>Kontakt os direkte</h3>
-          </div>
-
-          <form id="contactForm" class="contact-form">
-            <div class="field-row">
-              <label>
-                <span>Navn</span>
-                <input id="senderName" type="text" placeholder="Dit navn" required />
-              </label>
-              <label>
-                <span>Email</span>
-                <input id="senderEmail" type="email" placeholder="din@email.dk" required />
-              </label>
-            </div>
-
-            <label>
-              <span>Emne</span>
-              <input id="mailSubject" type="text" placeholder="Eks. Interesse for en bil" required />
-            </label>
-
-            <label>
-              <span>Besked</span>
-              <textarea id="mailBody" rows="6" placeholder="Skriv din besked her..." required></textarea>
-            </label>
-
-            <button type="submit" class="primary-btn">Send mail</button>
-          </form>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer">

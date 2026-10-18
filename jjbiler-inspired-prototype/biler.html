@@ -9,27 +9,23 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="config.js"></script>
   </head>
-  <body>
+  <body data-page="biler">
     <header class="topbar">
       <div class="container topbar-inner">
-        <div class="brand-wrap">
-          <a class="home-link" href="index.html" aria-label="Til forsiden">🏠</a>
-          <a class="brand" href="index.html" aria-label="Krathman">
-            <img src="../images/logo.jpg" alt="Krathman logo" />
-            <span data-config="siteTitle">Krathman</span>
-          </a>
-        </div>
+        <a class="brand" href="index.html" aria-label="Krathman">
+          <img src="../images/logo.jpg" alt="Krathman logo" />
+          <span data-config="siteTitle">Krathman</span>
+        </a>
 
         <nav class="main-nav" aria-label="Hovednavigation">
-          <a href="index.html">Home</a>
+          <a class="nav-home" href="index.html" aria-label="Til forsiden">🏠</a>
           <a href="biler.html" class="active">Biler</a>
           <a href="om-os-kontakt.html">Om Os &amp; Kontakt</a>
         </nav>
 
         <div class="nav-tools">
-          <a class="phone-pill" data-config="phoneHref" href="tel:+4586628545" aria-label="Ring os">
-            <span class="phone-icon">☎</span>
-            <span data-config="contactPhone">+45 86 62 85 45</span>
+          <a class="phone-pill" href="om-os-kontakt.html#kontakt-os" aria-label="Kontakt os">
+            <span class="phone-icon" aria-hidden="true">📞</span>
           </a>
           <button class="theme-toggle" id="themeToggle" aria-label="Skift farvetema">
             <span class="toggle-icon">☀️</span>

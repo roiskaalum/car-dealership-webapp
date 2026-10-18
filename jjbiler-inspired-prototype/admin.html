@@ -20,22 +20,29 @@
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       }
       .admin-shell {
-        max-width: 860px; width: min(92vw, 860px); margin: 80px auto; background: rgba(17, 24, 39, 0.9); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 20px 44px rgba(0,0,0,0.2); padding: 32px;
+        max-width: 1100px; width: min(94vw, 1100px); margin: 80px auto; background: rgba(17, 24, 39, 0.9); border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 20px 44px rgba(0,0,0,0.2); padding: 32px;
       }
       .admin-shell h1 { margin: 0 0 12px; font-size: clamp(2rem, 3vw, 3rem); }
       .admin-shell p { margin: 0 0 18px; color: var(--muted); }
+      .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+      .config-section { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 18px; padding: 18px; }
+      .config-section h2 { margin: 0 0 12px; font-size: 1.2rem; }
       .admin-form { display: grid; gap: 18px; }
-      .field { display: grid; gap: 8px; }
+      .field { display: grid; gap: 8px; margin-bottom: 14px; }
+      .field-note { font-size: 0.8rem; color: rgba(199, 210, 254, 0.8); }
       label { font-weight: 700; }
       input, textarea, button, a { font: inherit; }
       input, textarea { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text); border-radius: 12px; padding: 12px 14px; width: 100%; }
-      .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+      textarea { min-height: 90px; resize: vertical; }
+      .actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 10px; }
       .primary-btn, .secondary-btn {
         display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; padding: 12px 18px; font-weight: 700; text-decoration: none;
       }
       .primary-btn { cursor: pointer; border: none; background: var(--accent); color: white; }
       .secondary-btn { border: 1px solid var(--border); background: transparent; color: var(--text); }
       .admin-lock { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+      .readability-preview { display: grid; gap: 6px; padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--border); background: rgba(59,130,246,0.06); color: var(--text); }
+      .readability-preview strong { color: #fff; }
     </style>
     <script src="config.js"></script>
   </head>

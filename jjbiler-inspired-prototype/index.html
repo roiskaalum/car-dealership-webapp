@@ -3,39 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jesper Jørgensen Biler</title>
+    <title>Krathman</title>
     <meta
       name="description"
-      content="Jesper Jørgensen Biler – kvalitetsbiler med fokus på personlig service og et velholdt lager."
+      content="Krathman – kvalitetsbiler med fokus på personlig service og et velholdt lager."
     />
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
     <link rel="stylesheet" href="styles.css" />
     <script src="config.js"></script>
   </head>
-  <body>
-    <!--
-      PROTOTYPE NOTE:
-      This is a dealer-layout prototype inspired by the visual structure of jjbiler.dk.
-      It keeps the original project untouched while using the real dealership identity
-      and business details from the source page.
-    -->
-
+  <body data-page="home">
     <header class="topbar">
       <div class="container topbar-inner">
-        <a class="brand" href="#top" aria-label="Jesper Jørgensen Biler">
-          <img src="../images/logo.jpg" alt="Jesper Jørgensen Biler logo" />
-          <span>JESPER JØRGENSEN BILER</span>
+        <a class="brand" href="index.html" aria-label="Krathman">
+          <img src="../images/logo.jpg" alt="Krathman logo" />
+          <span data-config="siteTitle">KRATHMAN</span>
         </a>
 
         <nav class="main-nav" aria-label="Hovednavigation">
-          <a href="#inventory">Biler</a>
-          <a href="#about">Om Os &amp; Kontakt</a>
+          <a class="nav-home active" href="index.html" aria-label="Til forsiden">🏠</a>
+          <a href="biler.html">Biler</a>
+          <a href="om-os-kontakt.html">Om Os &amp; Kontakt</a>
         </nav>
 
         <div class="nav-tools">
-          <a class="phone-pill" href="tel:+4540819555" aria-label="Ring os">
-            <span class="phone-icon">☎</span>
-            <span>40 81 95 55</span>
+          <a class="phone-pill" href="#kontakt-os" aria-label="Kontakt os">
+            <span class="phone-icon" aria-hidden="true">📞</span>
           </a>
           <button class="theme-toggle" id="themeToggle" aria-label="Skift farvetema">
             <span class="toggle-icon">☀️</span>
@@ -50,104 +43,20 @@
         <div class="hero-image"></div>
         <div class="hero-overlay"></div>
 
-        <div class="container hero-inner">
+        <div class="container hero-inner single-column">
           <div class="hero-copy">
             <p class="eyebrow">Kvalitetsbiler til enhver tid</p>
-            <h1>Find den rette bil hos Jesper Jørgensen Biler</h1>
-            <p>
-              Vi har mange års erfaring i bilbranchen og tilbyder et velholdt udvalg af
-              brugte biler med fokus på ærlighed, kvalitet og personlig service fra første
-              kontakt til købesummering.
+            <h1 data-config="homeHeroTitle">Find den rette bil hos Krathman</h1>
+            <p data-config="homeHeroText">
+              Krathman er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et
+              velholdt udvalg af brugte biler og personlig service med fokus på ærlighed,
+              kvalitet og en god oplevelse fra første kontakt til købesummering.
             </p>
             <div class="cta-row">
-              <a href="#inventory" class="primary-btn">Se biler</a>
-              <a href="#about" class="secondary-btn">Om os &amp; kontakt</a>
+              <a href="biler.html" class="primary-btn">Se biler</a>
+              <a href="om-os-kontakt.html" class="secondary-btn">Om os &amp; kontakt</a>
             </div>
           </div>
-
-          <aside class="search-panel" aria-label="Bil søgepanel">
-            <div class="panel-head">
-              <strong>Find din bil</strong>
-              <span id="inventoryCount">30 biler fundet</span>
-            </div>
-
-            <div class="field-grid">
-              <label>
-                <span>Mærke</span>
-                <select id="brandSelect">
-                  <option value="all">Alle mærker</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Model</span>
-                <select id="modelSelect">
-                  <option value="all">Alle modeller</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Pris</span>
-                <select id="priceSelect">
-                  <option value="all">Alle priser</option>
-                  <option value="0-100000">Under 100.000 kr.</option>
-                  <option value="100000-200000">100.000 - 200.000 kr.</option>
-                  <option value="200000-300000">200.000 - 300.000 kr.</option>
-                  <option value="300000-999999">Over 300.000 kr.</option>
-                </select>
-              </label>
-
-              <label>
-                <span>Årgang</span>
-                <select id="yearSelect">
-                  <option value="all">Alle årgange</option>
-                  <option value="2010-2015">2010 - 2015</option>
-                  <option value="2016-2019">2016 - 2019</option>
-                  <option value="2020-2024">2020 - 2024</option>
-                </select>
-              </label>
-            </div>
-
-            <div class="filter-groups" aria-label="Kategoriserede filtre">
-              <div class="filter-group">
-                <p>Brændstof</p>
-                <div class="filter-options">
-                  <label><input type="checkbox" value="electric" /> El</label>
-                  <label><input type="checkbox" value="diesel" /> Diesel</label>
-                  <label><input type="checkbox" value="benzin" /> Benzin</label>
-                  <label><input type="checkbox" value="hybrid" /> Hybrid</label>
-                </div>
-              </div>
-
-              <div class="filter-group">
-                <p>Biltype</p>
-                <div class="filter-options">
-                  <label><input type="checkbox" value="suv" /> SUV</label>
-                  <label><input type="checkbox" value="hatchback" /> Lille bil</label>
-                  <label><input type="checkbox" value="sedan" /> Sedan</label>
-                  <label><input type="checkbox" value="kombi" /> Kombi</label>
-                  <label><input type="checkbox" value="van" /> Lad / varevogn</label>
-                </div>
-              </div>
-
-              <div class="filter-group">
-                <p>Gearkasse</p>
-                <div class="filter-options">
-                  <label><input type="checkbox" value="aut" /> Automatgear</label>
-                  <label><input type="checkbox" value="man" /> Manuel</label>
-                </div>
-              </div>
-
-              <div class="filter-group">
-                <p>Døre</p>
-                <div class="filter-options">
-                  <label><input type="checkbox" value="door-2" /> 2-dørs</label>
-                  <label><input type="checkbox" value="door-4" /> 4-dørs</label>
-                  <label><input type="checkbox" value="door-5" /> 5-dørs</label>
-                </div>
-              </div>
-            </div>
-          </aside>
         </div>
       </section>
 
@@ -187,21 +96,16 @@
         <div class="container story-grid">
           <div class="story-copy">
             <p class="small-kicker">Om os &amp; kontakt</p>
-            <h2>Vi har altid ca. 25 biler på lager</h2>
-            <p>
-              Hos Jesper Jørgensen Biler har vi over 40 års erfaring i bilbranchen. Vi
-              tilbyder et bredt udvalg af kvalitetsbiler til konkurrencedygtige priser,
-              og vi forsøger hver dag at skabe en god og professionel oplevelse fra det
-              første telefonopkald til den sidste underskrift.
-            </p>
-            <p>
-              Det er vigtigt for os, at du føler dig hørt og forstået, og at du går herfra
-              med ro i maven og en bil der matcher dit behov, budget og hverdag.
+            <h2 data-config="homeAboutHeading">Vi har altid ca. 25 biler på lager</h2>
+            <p data-config="homeAboutText">
+              Krathman er kendt for at kombinere mange års erfaring med personlig service,
+              som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af
+              kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.
             </p>
           </div>
 
           <div class="story-image">
-            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" alt="Jesper Jørgensen Biler" />
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80" alt="Krathman" />
           </div>
         </div>
       </section>
@@ -214,8 +118,8 @@
             </div>
             <div class="feature-copy">
               <p class="small-kicker">Service</p>
-              <h3>Lav gerne en aftale i forvejen</h3>
-              <p>
+              <h3 data-config="serviceTitle1">Lav gerne en aftale i forvejen</h3>
+              <p data-config="serviceText1">
                 Det er altid en god idé at ringe i forvejen, inden du besøger os. Då vi kan
                 sikre, at vi har åbent, er klar til at tage imod dig og kan give dig tiden
                 og den service, du fortjener.
@@ -226,8 +130,8 @@
           <article class="feature-card">
             <div class="feature-copy">
               <p class="small-kicker">Personlig rådgivning</p>
-              <h3>Vi guider dig til den rigtige bil</h3>
-              <p>
+              <h3 data-config="serviceTitle2">Vi guider dig til den rigtige bil</h3>
+              <p data-config="serviceText2">
                 Uanset om du vil have en lille bybil, en praktisk familiebil, en meget
                 økonomisk diesel eller en moderne elbil, så hjælper vi med at finde en
                 løsning, der passer til dit behov.
@@ -240,12 +144,12 @@
         </div>
       </section>
 
-      <section class="contact-banner" id="contact">
+      <section class="contact-banner" id="kontakt-os">
         <div class="container contact-layout">
           <div class="contact-copy-block">
             <p class="small-kicker">Har du spørgsmål?</p>
-            <h2>Kontakt os</h2>
-            <p>
+            <h2 data-config="contactSectionTitle">Kontakt os</h2>
+            <p data-config="contactSectionText">
               Vi er altid klar til at hjælpe dig med at finde den rigtige bil til dig og
               din hverdag.
             </p>
@@ -254,81 +158,47 @@
           <div class="contact-card">
             <div class="contact-row">
               <strong>Telefon</strong>
-              <a href="tel:+4540819555">40 81 95 55</a>
+              <a data-config="phoneHref" href="tel:+4586628545" data-config-value="contactPhone">+45 86 62 85 45</a>
             </div>
             <div class="contact-row">
               <strong>E-mail</strong>
-              <a href="mailto:salg@jjbiler.dk">salg@jjbiler.dk</a>
+              <a data-config="emailHref" href="mailto:kurt@krathmand.dk" data-config-value="contactEmail">kurt@krathmand.dk</a>
             </div>
             <div class="contact-row">
               <strong>Adresse</strong>
-              <span>Vinkelvej 116, 8800 Viborg</span>
+              <span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span>
             </div>
             <div class="contact-row">
               <strong>Åbningstider</strong>
-              <span>Efter aftale</span>
+              <span data-config="contactHours">Efter aftale</span>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="contact-form-section">
-        <div class="container contact-form-wrap">
-          <div class="contact-form-head">
-            <p class="small-kicker">Send en forespørgsel</p>
-            <h3>Kontakt os direkte</h3>
-          </div>
-
-          <form id="contactForm" class="contact-form">
-            <div class="field-row">
-              <label>
-                <span>Navn</span>
-                <input id="senderName" type="text" placeholder="Dit navn" required />
-              </label>
-              <label>
-                <span>Email</span>
-                <input id="senderEmail" type="email" placeholder="din@email.dk" required />
-              </label>
-            </div>
-
-            <label>
-              <span>Emne</span>
-              <input id="mailSubject" type="text" placeholder="Eks. Interesse for Peugeot 208" required />
-            </label>
-
-            <label>
-              <span>Besked</span>
-              <textarea id="mailBody" rows="6" placeholder="Skriv din besked her..." required></textarea>
-            </label>
-
-            <button type="submit" class="primary-btn">Send mail</button>
-          </form>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer" id="sold">
       <div class="container footer-grid">
         <div>
-          <p class="footer-brand">JESPER JØRGENSEN BILER</p>
+          <p class="footer-brand">KRATHMAN</p>
           <p>© 2026</p>
         </div>
 
         <div>
           <h4>Navigation</h4>
           <ul>
-            <li><a href="#inventory">Biler</a></li>
-            <li><a href="#about">Om Os &amp; Kontakt</a></li>
+            <li><a href="biler.html">Biler</a></li>
+            <li><a href="om-os-kontakt.html">Om Os &amp; Kontakt</a></li>
           </ul>
         </div>
 
         <div>
           <h4>Kontakt</h4>
           <ul>
-            <li><a href="tel:+4540819555">40 81 95 55</a></li>
-            <li><a href="mailto:salg@jjbiler.dk">salg@jjbiler.dk</a></li>
-            <li><span>Vinkelvej 116</span></li>
-            <li><span>8800 Viborg</span></li>
+            <li><a data-config="phoneHref" href="tel:+4586628545" data-config-value="contactPhone">+45 86 62 85 45</a></li>
+            <li><a data-config="emailHref" href="mailto:kurt@krathmand.dk" data-config-value="contactEmail">kurt@krathmand.dk</a></li>
+            <li><span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span></li>
           </ul>
         </div>
       </div>
