@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Om Os &amp; Kontakt – Krathman</title>
+    <meta name="description" content="Om os og kontaktinformation for Krathman." />
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand-wrap">
+          <a class="home-link" href="index.html" aria-label="Til forsiden">🏠</a>
+          <a class="brand" href="index.html" aria-label="Krathman">
+            <img src="../images/logo.jpg" alt="Krathman logo" />
+            <span data-config="siteTitle">Krathman</span>
+          </a>
+        </div>
+
+        <nav class="main-nav" aria-label="Hovednavigation">
+          <a href="index.html">Home</a>
+          <a href="biler.html">Biler</a>
+          <a href="om-os-kontakt.html" class="active">Om Os &amp; Kontakt</a>
+        </nav>
+
+        <div class="nav-tools">
+          <a class="phone-pill" href="tel:+4586628545" aria-label="Ring os">
+            <span class="phone-icon">☎</span>
+            <span data-config="contactPhone">+45 86 62 85 45</span>
+          </a>
+          <button class="theme-toggle" id="themeToggle" aria-label="Skift farvetema">
+            <span class="toggle-icon">☀️</span>
+            <span class="toggle-text">Lys</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="story-band about-page">
+        <div class="container story-grid about-grid">
+          <div class="story-copy">
+            <p class="small-kicker">Om os &amp; kontakt</p>
+            <h2 data-config="aboutHeading">Krathman</h2>
+            <p data-config="aboutText">
+              Krathmand er din leverandør af kvalitetsbiler i alle aldre.
+            </p>
+          </div>
+
+          <div class="story-image">
+            <img data-config="ownerPhoto" src="https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=is&k=20&c=-Jq_6tAjuYieAjOB5B1CyUXSrD_tKE3IKZwVGIjn8-8=" alt="Ejer af virksomheden" />
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-banner contact-page-band">
+        <div class="container contact-layout">
+          <div class="contact-copy-block">
+            <p class="small-kicker">Kontakt</p>
+            <h2>Har du spørgsmål?</h2>
+            <p>Vi vil gerne hjælpe dig med at finde den rigtige bil til dig og din hverdag.</p>
+          </div>
+
+          <div class="contact-card">
+            <div class="contact-row">
+              <strong>Telefon</strong>
+              <a data-config="phoneHref" href="tel:+4586628545" data-config-value="contactPhone">+45 86 62 85 45</a>
+            </div>
+            <div class="contact-row">
+              <strong>E-mail</strong>
+              <a data-config="emailHref" href="mailto:kurt@krathmand.dk" data-config-value="contactEmail">kurt@krathmand.dk</a>
+            </div>
+            <div class="contact-row">
+              <strong>Adresse</strong>
+              <span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span>
+            </div>
+            <div class="contact-row">
+              <strong>Åbningstider</strong>
+              <span data-config="contactHours">Efter aftale</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-form-section">
+        <div class="container contact-form-wrap">
+          <div class="contact-form-head">
+            <p class="small-kicker">Send en forespørgsel</p>
+            <h3>Kontakt os direkte</h3>
+          </div>
+
+          <form id="contactForm" class="contact-form">
+            <div class="field-row">
+              <label>
+                <span>Navn</span>
+                <input id="senderName" type="text" placeholder="Dit navn" required />
+              </label>
+              <label>
+                <span>Email</span>
+                <input id="senderEmail" type="email" placeholder="din@email.dk" required />
+              </label>
+            </div>
+
+            <label>
+              <span>Emne</span>
+              <input id="mailSubject" type="text" placeholder="Eks. Interesse for en bil" required />
+            </label>
+
+            <label>
+              <span>Besked</span>
+              <textarea id="mailBody" rows="6" placeholder="Skriv din besked her..." required></textarea>
+            </label>
+
+            <button type="submit" class="primary-btn">Send mail</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <p class="footer-brand" data-config="siteTitle">Krathman</p>
+          <p>© 2026</p>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="biler.html">Biler</a></li>
+            <li><a href="om-os-kontakt.html">Om Os &amp; Kontakt</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="tel:+4586628545" data-config="phoneHref" data-config-value="contactPhone">+45 86 62 85 45</a></li>
+            <li><a href="mailto:kurt@krathmand.dk" data-config="emailHref" data-config-value="contactEmail">kurt@krathmand.dk</a></li>
+            <li><span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
