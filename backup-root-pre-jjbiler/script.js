@@ -2,7 +2,7 @@ const CONFIG_KEY = 'dealer_app_config';
 const THEME_KEY = 'dealer_theme';
 
 const defaultConfig = window.APP_CONFIG || {
-  siteTitle: 'KRATHMAN',
+  siteTitle: 'krathmandDd',
   logoUrl: 'images/logo.jpg',
   primaryColor: '#1e3a8a',
   secondaryColor: '#3b82f6',
@@ -34,27 +34,24 @@ const defaultConfig = window.APP_CONFIG || {
   darkBorder: 'rgba(148, 163, 184, 0.18)',
   bannerTitle: 'Kvalitetsbiler til Alle',
   bannerText: 'Udforsk udvalget af biler tilgængelige på BilInfo.',
-  homeHeroTitle: 'Find den rette bil hos Krathman',
-  homeHeroText: 'Krathman er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
+  homeHeroTitle: 'Find den rette bil hos krathmandDd',
+  homeHeroText: 'krathmandDd er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
   homeAboutHeading: 'Vi har altid ca. 25 biler på lager',
-  homeAboutText: 'Krathman er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
+  homeAboutText: 'krathmandDd er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
   serviceTitle1: 'Lav gerne en aftale i forvejen',
   serviceText1: 'Det er altid en god idé at ringe i forvejen, inden du besøger os. Då vi kan sikre, at vi har åbent, er klar til at tage imod dig og kan give dig tiden og den service, du fortjener.',
   serviceTitle2: 'Vi guider dig til den rigtige bil',
   serviceText2: 'Uanset om du vil have en lille bybil, en praktisk familiebil, en meget økonomisk diesel eller en moderne elbil, så hjælper vi med at finde en løsning, der passer til dit behov.',
   contactSectionTitle: 'Kontakt os',
   contactSectionText: 'Vi er altid klar til at hjælpe dig med at finde den rigtige bil til dig og din hverdag.',
-  ownerName: 'Kurt Krathmand',
+  ownerName: 'Kurt krathmandDdd',
   ownerPhoto: 'https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=is&k=20&c=-Jq_6tAjuYieAjOB5B1CyUXSrD_tKE3IKZwVGIjn8-8=',
-  aboutHeading: 'Krathman',
-  aboutText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre.',
+  aboutHeading: 'krathmandDd',
+  aboutText: 'krathmandDdd er din leverandør af kvalitetsbiler i alle aldre.',
   contactPhone: '+45 86 62 85 45',
   contactPhoneHref: 'tel:+4586628545',
-  contactEmail: 'kurt@krathmand.dk',
-  contactEmailHref: 'mailto:kurt@krathmand.dk',
-  contactAddress: 'Fabrikvej 1 8800 Viborg',
-  contactHours: 'Efter aftale',
-  adminSlug: 'x8fD4r7nQ2'
+  contactEmail: 'kurt@krathmandDdd.dk',
+  contactEmailHref: 'mailto:kurt@krathmandDdd.dk'
 };
 
 const starterCars = [
@@ -617,17 +614,6 @@ function initializeAdminPage() {
   const params = new URLSearchParams(window.location.search);
   const key = params.get('key');
   const config = getCurrentConfig();
-
-  if (key !== config.adminSlug) {
-    adminContent.innerHTML = `
-      <div class="admin-lock">
-        <h2>Adgang nægtet</h2>
-        <p>Du har ikke adgang til denne side uden det korrekte hemmelige nøgle.</p>
-        <p>Eksempel: /admin.html?key=${config.adminSlug}</p>
-      </div>
-    `;
-    return;
-  }
 
   adminContent.innerHTML = `
     <h1>Admin config</h1>

@@ -1,7 +1,7 @@
 {
-  "name": "kurtkrathmand",
+  "name": "krathmand",
   "version": "1.0.0",
-  "description": "Kurt Krathmand dealership website with local admin and API-backed config",
+  "description": "Krathmand dealership website with local admin and API-backed config",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

@@ -2,7 +2,7 @@ const CONFIG_KEY = 'dealer_app_config';
 const THEME_KEY = 'dealer_theme';
 
 const defaultConfig = window.APP_CONFIG || {
-  siteTitle: 'KRATHMAN',
+  siteTitle: 'Krathmand',
   logoUrl: 'images/logo.jpg',
   primaryColor: '#1e3a8a',
   secondaryColor: '#3b82f6',
@@ -34,10 +34,10 @@ const defaultConfig = window.APP_CONFIG || {
   darkBorder: 'rgba(148, 163, 184, 0.18)',
   bannerTitle: 'Kvalitetsbiler til Alle',
   bannerText: 'Udforsk udvalget af biler tilgængelige på BilInfo.',
-  homeHeroTitle: 'Find den rette bil hos Krathman',
-  homeHeroText: 'Krathman er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
+  homeHeroTitle: 'Find den rette bil hos Krathmand',
+  homeHeroText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
   homeAboutHeading: 'Vi har altid ca. 25 biler på lager',
-  homeAboutText: 'Krathman er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
+  homeAboutText: 'Krathmand er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
   serviceTitle1: 'Lav gerne en aftale i forvejen',
   serviceText1: 'Det er altid en god idé at ringe i forvejen, inden du besøger os. Då vi kan sikre, at vi har åbent, er klar til at tage imod dig og kan give dig tiden og den service, du fortjener.',
   serviceTitle2: 'Vi guider dig til den rigtige bil',
@@ -46,15 +46,14 @@ const defaultConfig = window.APP_CONFIG || {
   contactSectionText: 'Vi er altid klar til at hjælpe dig med at finde den rigtige bil til dig og din hverdag.',
   ownerName: 'Kurt Krathmand',
   ownerPhoto: 'https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=is&k=20&c=-Jq_6tAjuYieAjOB5B1CyUXSrD_tKE3IKZwVGIjn8-8=',
-  aboutHeading: 'Krathman',
+  aboutHeading: 'Krathmand',
   aboutText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre.',
   contactPhone: '+45 86 62 85 45',
   contactPhoneHref: 'tel:+4586628545',
   contactEmail: 'kurt@krathmand.dk',
   contactEmailHref: 'mailto:kurt@krathmand.dk',
   contactAddress: 'Fabrikvej 1 8800 Viborg',
-  contactHours: 'Efter aftale',
-  adminSlug: 'x8fD4r7nQ2'
+  contactHours: 'Efter aftale'
 };
 
 const starterCars = [
@@ -614,20 +613,7 @@ function initializeAdminPage() {
   const adminContent = document.getElementById('adminContent');
   if (!adminContent) return;
 
-  const params = new URLSearchParams(window.location.search);
-  const key = params.get('key');
   const config = getCurrentConfig();
-
-  if (key !== config.adminSlug) {
-    adminContent.innerHTML = `
-      <div class="admin-lock">
-        <h2>Adgang nægtet</h2>
-        <p>Du har ikke adgang til denne side uden det korrekte hemmelige nøgle.</p>
-        <p>Eksempel: /admin.html?key=${config.adminSlug}</p>
-      </div>
-    `;
-    return;
-  }
 
   adminContent.innerHTML = `
     <h1>Admin config</h1>
@@ -698,158 +684,50 @@ function initializeAdminPage() {
             <textarea id="cfgServiceText2">${config.serviceText2}</textarea>
           </div>
           <div class="field">
-            <label for="cfgContactSectionTitle">Kontakt sektion titel</label>
-            <input id="cfgContactSectionTitle" type="text" value="${config.contactSectionTitle}" />
-          </div>
-          <div class="field">
-            <label for="cfgContactSectionText">Kontakt sektion tekst</label>
-            <textarea id="cfgContactSectionText">${config.contactSectionText}</textarea>
-          </div>
-        </section>
-
-        <section class="config-section">
-          <h2>Om os-siden</h2>
-          <div class="field">
-            <label for="cfgOwnerName">Ejer navn</label>
-            <input id="cfgOwnerName" type="text" value="${config.ownerName}" />
-          </div>
-          <div class="field">
-            <label for="cfgOwnerPhoto">Ejer billede URL</label>
-            <input id="cfgOwnerPhoto" type="text" value="${config.ownerPhoto}" />
-          </div>
-          <div class="field">
-            <label for="cfgAboutHeading">Om os overskrift</label>
-            <input id="cfgAboutHeading" type="text" value="${config.aboutHeading || config.ownerName}" />
-          </div>
-          <div class="field">
-            <label for="cfgAboutText">Om os tekst</label>
-            <textarea id="cfgAboutText">${config.aboutText}</textarea>
-          </div>
-          <div class="field">
-            <label for="cfgBannerTitle">Biler-side titel</label>
-            <input id="cfgBannerTitle" type="text" value="${config.bannerTitle}" />
-          </div>
-          <div class="field">
-            <label for="cfgBannerText">Biler-side tekst</label>
-            <textarea id="cfgBannerText">${config.bannerText}</textarea>
-          </div>
-        </section>
-
-        <section class="config-section">
-          <h2>Farver og tema</h2>
-          <div class="field">
-            <label for="cfgPrimary">Primær farve</label>
-            <input id="cfgPrimary" type="text" value="${config.primary || config.primaryColor || '#123f79'}" />
-          </div>
-          <div class="field">
-            <label for="cfgPrimaryDark">Mørk primær farve</label>
-            <input id="cfgPrimaryDark" type="text" value="${config.primaryDark || '#0d2d5d'}" />
-          </div>
-          <div class="field">
-            <label for="cfgAccent">Accent farve</label>
-            <input id="cfgAccent" type="text" value="${config.accent || config.secondaryColor || '#1e88e5'}" />
-          </div>
-          <div class="field">
-            <label for="cfgNavText">Navbar tekst (lys tema)</label>
-            <input id="cfgNavText" type="text" value="${config.navText || '#edf6ff'}" />
-          </div>
-          <div class="field">
-            <label for="cfgDarkNavText">Navbar tekst (mørkt tema)</label>
-            <input id="cfgDarkNavText" type="text" value="${config.darkNavText || config.darkAccent || config.accent || '#1e88e5'}" />
-          </div>
-          <div class="field">
-            <label for="cfgBackground">Lys baggrund</label>
-            <input id="cfgBackground" type="text" value="${config.background || '#f4f7fb'}" />
-          </div>
-          <div class="field">
-            <label for="cfgPanel">Panel farve</label>
-            <input id="cfgPanel" type="text" value="${config.panel || '#ffffff'}" />
-          </div>
-          <div class="field">
-            <label for="cfgText">Tekst farve</label>
-            <input id="cfgText" type="text" value="${config.text || '#111827'}" />
-          </div>
-          <div class="field">
-            <label for="cfgDarkPrimary">Mørk tema primær</label>
-            <input id="cfgDarkPrimary" type="text" value="${config.darkPrimary || '#1d4ed8'}" />
-          </div>
-          <div class="field">
-            <label for="cfgDarkAccent">Mørk tema accent</label>
-            <input id="cfgDarkAccent" type="text" value="${config.darkAccent || '#63b3ff'}" />
-          </div>
-          <div class="field">
-            <label for="cfgDarkBackground">Mørk baggrund</label>
-            <input id="cfgDarkBackground" type="text" value="${config.darkBackground || '#0f172a'}" />
-          </div>
-          <div class="field">
-            <label for="cfgDarkText">Mørk tekst</label>
-            <input id="cfgDarkText" type="text" value="${config.darkText || '#edf3ff'}" />
+            <label for="cfgServiceText2">Service 2 tekst</label>
+            <textarea id="cfgServiceText2">${config.serviceText2}</textarea>
           </div>
         </section>
       </div>
-
-      <div class="readability-preview">
-        <strong>Reference for hvor teksten vises</strong>
-        <span>Header/footer: logo, telefon, e-mail, adresse</span>
-        <span>Forside: hero, virksomhedsinfo, service-sektioner og kontakt-blok</span>
-        <span>Om os: ejer, billede og virksomhedsbeskrivelse</span>
-        <span>Biler: sideoverskrift og introduktion</span>
-      </div>
-
       <div class="actions">
-        <button class="primary-btn" type="submit">Gem ændringer</button>
-        <a class="secondary-btn" href="index.html">Tilbage til hjemmeside</a>
+        <button type="submit" class="primary-btn">Gem ændringer</button>
+        <button type="button" class="secondary-btn" id="resetConfigButton">Nulstil</button>
       </div>
     </form>
   `;
 
-  document.getElementById('adminForm')?.addEventListener('submit', (event) => {
-    event.preventDefault();
+  const adminForm = document.getElementById('adminForm');
+  if (!adminForm) return;
 
-    const nextConfig = {
-      ...config,
-      siteTitle: document.getElementById('cfgSiteTitle').value,
-      logoUrl: document.getElementById('cfgLogoUrl').value,
-      contactPhone: document.getElementById('cfgPhone').value,
-      contactEmail: document.getElementById('cfgEmail').value,
-      contactAddress: document.getElementById('cfgAddress').value,
-      contactHours: document.getElementById('cfgHours').value,
-      homeHeroTitle: document.getElementById('cfgHomeHeroTitle').value,
-      homeHeroText: document.getElementById('cfgHomeHeroText').value,
-      homeAboutHeading: document.getElementById('cfgHomeAboutHeading').value,
-      homeAboutText: document.getElementById('cfgHomeAboutText').value,
-      serviceTitle1: document.getElementById('cfgServiceTitle1').value,
-      serviceText1: document.getElementById('cfgServiceText1').value,
-      serviceTitle2: document.getElementById('cfgServiceTitle2').value,
-      serviceText2: document.getElementById('cfgServiceText2').value,
-      contactSectionTitle: document.getElementById('cfgContactSectionTitle').value,
-      contactSectionText: document.getElementById('cfgContactSectionText').value,
-      ownerName: document.getElementById('cfgOwnerName').value,
-      ownerPhoto: document.getElementById('cfgOwnerPhoto').value,
-      aboutHeading: document.getElementById('cfgAboutHeading').value,
-      aboutText: document.getElementById('cfgAboutText').value,
-      bannerTitle: document.getElementById('cfgBannerTitle').value,
-      bannerText: document.getElementById('cfgBannerText').value,
-      primary: document.getElementById('cfgPrimary').value,
-      primaryDark: document.getElementById('cfgPrimaryDark').value,
-      accent: document.getElementById('cfgAccent').value,
-      navText: document.getElementById('cfgNavText').value,
-      darkNavText: document.getElementById('cfgDarkNavText').value,
-      background: document.getElementById('cfgBackground').value,
-      panel: document.getElementById('cfgPanel').value,
-      text: document.getElementById('cfgText').value,
-      darkPrimary: document.getElementById('cfgDarkPrimary').value,
-      darkAccent: document.getElementById('cfgDarkAccent').value,
-      darkBackground: document.getElementById('cfgDarkBackground').value,
-      darkText: document.getElementById('cfgDarkText').value,
-      contactPhoneHref: `tel:${document.getElementById('cfgPhone').value.replace(/\s+/g, '').replace('+', '')}`,
-      contactEmailHref: `mailto:${document.getElementById('cfgEmail').value}`
-    };
+  adminForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const nextConfig = { ...config };
+    nextConfig.siteTitle = document.getElementById('cfgSiteTitle')?.value || config.siteTitle;
+    nextConfig.logoUrl = document.getElementById('cfgLogoUrl')?.value || config.logoUrl;
+    nextConfig.contactPhone = document.getElementById('cfgPhone')?.value || config.contactPhone;
+    nextConfig.contactEmail = document.getElementById('cfgEmail')?.value || config.contactEmail;
+    nextConfig.contactAddress = document.getElementById('cfgAddress')?.value || config.contactAddress;
+    nextConfig.contactHours = document.getElementById('cfgHours')?.value || config.contactHours;
+    nextConfig.homeHeroTitle = document.getElementById('cfgHomeHeroTitle')?.value || config.homeHeroTitle;
+    nextConfig.homeHeroText = document.getElementById('cfgHomeHeroText')?.value || config.homeHeroText;
+    nextConfig.homeAboutHeading = document.getElementById('cfgHomeAboutHeading')?.value || config.homeAboutHeading;
+    nextConfig.homeAboutText = document.getElementById('cfgHomeAboutText')?.value || config.homeAboutText;
+    nextConfig.serviceTitle1 = document.getElementById('cfgServiceTitle1')?.value || config.serviceTitle1;
+    nextConfig.serviceText1 = document.getElementById('cfgServiceText1')?.value || config.serviceText1;
+    nextConfig.serviceTitle2 = document.getElementById('cfgServiceTitle2')?.value || config.serviceTitle2;
+    nextConfig.serviceText2 = document.getElementById('cfgServiceText2')?.value || config.serviceText2;
 
     localStorage.setItem(CONFIG_KEY, JSON.stringify(nextConfig));
-    applyConfig();
     window.location.reload();
   });
+
+  const resetButton = document.getElementById('resetConfigButton');
+  if (resetButton) {
+    resetButton.addEventListener('click', () => {
+      localStorage.removeItem(CONFIG_KEY);
+      window.location.reload();
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

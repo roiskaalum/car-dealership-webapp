@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Login – Krathman</title>
+    <title>Admin Login – Krathmand</title>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link rel="stylesheet" href="/styles.css" />
     <style>
@@ -60,9 +60,9 @@
   <body>
     <div class="login-box">
       <h1>Admin login</h1>
-      <p>Log in for at administrere tekst, kontaktdata, farver og API-indstillinger.</p>
+      <p>Dette er kun til intern brug. Kontakt os for redigering.</p>
 
-      <form id="loginForm">
+      <form id="adminLoginForm">
         <label for="username">Brugernavn</label>
         <input id="username" type="text" name="username" autocomplete="username" />
 
@@ -76,6 +76,22 @@
       <a href="/" class="secondary">← Tilbage til hjemmesiden</a>
     </div>
 
-    <script src="/app.js"></script>
+    <script>
+      const form = document.getElementById('adminLoginForm');
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const status = document.getElementById('loginStatus');
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        if (username === 'admin' && password === 'admin123') {
+          localStorage.setItem('staticAdminSession', 'active');
+          window.location.href = '/dashboard';
+          return;
+        }
+
+        status.textContent = 'Forkert brugernavn eller adgangskode.';
+      });
+    </script>
   </body>
 </html>

@@ -1,5 +1,5 @@
 window.APP_CONFIG = {
-  siteTitle: 'KRATHMAN',
+  siteTitle: 'Krathmand',
   logoUrl: 'images/logo.jpg',
   primaryColor: '#1e3a8a',
   secondaryColor: '#3b82f6',
@@ -29,10 +29,10 @@ window.APP_CONFIG = {
   darkBorder: 'rgba(148, 163, 184, 0.18)',
   bannerTitle: 'Kvalitetsbiler til Alle',
   bannerText: 'Udforsk udvalget af biler tilgængelige på BilInfo.',
-  homeHeroTitle: 'Find den rette bil hos Krathman',
-  homeHeroText: 'Krathman er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
+  homeHeroTitle: 'Find den rette bil hos Krathmand',
+  homeHeroText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
   homeAboutHeading: 'Vi har altid ca. 25 biler på lager',
-  homeAboutText: 'Krathman er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
+  homeAboutText: 'Krathmand er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
   serviceTitle1: 'Lav gerne en aftale i forvejen',
   serviceText1: 'Det er altid en god idé at ringe i forvejen, inden du besøger os. Då vi kan sikre, at vi har åbent, er klar til at tage imod dig og kan give dig tiden og den service, du fortjener.',
   serviceTitle2: 'Vi guider dig til den rigtige bil',
@@ -41,7 +41,7 @@ window.APP_CONFIG = {
   contactSectionText: 'Vi er altid klar til at hjælpe dig med at finde den rigtige bil til dig og din hverdag.',
   ownerName: 'Kurt Krathmand',
   ownerPhoto: 'https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=is&k=20&c=-Jq_6tAjuYieAjOB5B1CyUXSrD_tKE3IKZwVGIjn8-8=',
-  aboutHeading: 'Krathman',
+  aboutHeading: 'Krathmand',
   aboutText: `Krathmand er din leverandør af kvalitetsbiler i alle aldre.
 
 Firmaet har mange års erfaring og har samarbejde med finansieringsselskaber, så drømmebilen kan blive en realitet.
@@ -52,6 +52,5 @@ Vi fremskaffer også biler ud fra bestemte ønsker, så giv et ring på 40 15 90
   contactEmail: 'kurt@krathmand.dk',
   contactEmailHref: 'mailto:kurt@krathmand.dk',
   contactAddress: 'Fabrikvej 1 8800 Viborg',
-  contactHours: 'Efter aftale',
-  adminSlug: 'x8fD4r7nQ2'
+  contactHours: 'Efter aftale'
 };

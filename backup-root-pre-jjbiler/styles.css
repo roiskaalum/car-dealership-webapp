@@ -146,10 +146,11 @@ input {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 60;
+  z-index: 1000;
   background: rgba(13, 22, 34, 0.96);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .topbar-inner {

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard – Krathman</title>
+    <title>Dashboard – Krathmand</title>
     <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
     <link rel="stylesheet" href="/styles.css" />
     <style>
@@ -99,7 +99,7 @@
         <form id="basicSettingsForm">
           <div class="field">
             <label for="siteTitleInput">Website titel</label>
-            <input id="siteTitleInput" type="text" value="KRATHMAN" />
+            <input id="siteTitleInput" type="text" value="Krathmand" />
           </div>
           <div class="field">
             <label for="phoneInput">Telefon</label>
@@ -139,12 +139,12 @@
           contactAddress: document.getElementById('addressInput').value,
           logoUrl: document.getElementById('logoInput').value
         };
-        localStorage.setItem('krathmanSettings', JSON.stringify(settings));
+        localStorage.setItem('krathmandSettings', JSON.stringify(settings));
         document.getElementById('statusMessage').textContent = 'Gemte ændringer.';
       }
 
       function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('krathmanSettings') || '{}');
+        const saved = JSON.parse(localStorage.getItem('krathmandSettings') || '{}');
         if (saved.siteTitle) document.getElementById('siteTitleInput').value = saved.siteTitle;
         if (saved.contactPhone) document.getElementById('phoneInput').value = saved.contactPhone;
         if (saved.contactEmail) document.getElementById('emailInput').value = saved.contactEmail;

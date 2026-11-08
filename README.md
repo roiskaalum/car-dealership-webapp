@@ -1,48 +1,36 @@
-# JJBiler-inspired prototype
+# Krathmand car dealership website
 
-This folder is a separate mockup and is intentionally not replacing the original website in the parent folder.
+This repository contains the current dealership site and supporting project copies. The active website is built around the `KurtKrathmand` app, with a matching static mirror in `KurtKrathmandStatic`.
 
-## What this prototype includes
-- dark/light mode switch in the top navigation
-- hero banner with overlaid search panel
-- sorting and filtering controls for common car attributes
-- additional sections inspired by the dealer layout structure
-- hidden admin page pattern for safer internal editing without a login system
+`backup-root-pre-jjbiler` is kept as a historical archive of older prototype work and is not part of the live site.
 
-## Public site and admin access
-The public site is served as normal from this folder.
-The admin page is intentionally hidden and not linked from the UI. It is only reachable by using the hidden slug in config.js.
+## Project structure
+- `KurtKrathmand/` — main Express-based website
+- `KurtKrathmandStatic/` — static version of the same site
+- `backup-root-pre-jjbiler/` — historical backup, kept for reference only
 
-Example:
-- http://localhost:8000/jjbiler-inspired-prototype/admin.html?key=x8fD4r7nQ2
+## Run the live app locally
+From the `KurtKrathmand` folder:
 
-The actual key is stored in:
-- config.js
+```bash
+npm install
+npm start
+```
 
-Do not expose this in the public templates or navigation.
+Then open:
+- http://localhost:3000
 
-## Hero image placeholder
-The hero uses a local SVG placeholder created for the layout:
-- assets/hero-car.svg
-
-This is meant to be replaced later with a real photo that fits the landing banner.
-Recommended specs for the final hero photo:
-- size: 2000 x 1000 px or larger
-- crop: car fills roughly 70-80% of the frame, with a clean background
-- composition: wide angle, front/side view, no text overlay
-- style: clean, premium, dealership-quality image
-- avoid: clutter, logo overlays, or heavy filters
-
-## Run locally
-From this folder, start a static server:
+## Run the static version locally
+From the project root or the static folder:
 
 ```bash
 python -m http.server 8000
 ```
 
 Then open:
-- http://localhost:8000/index.html
-- http://localhost:8000/admin.html?key=x8fD4r7nQ2
+- http://localhost:8000/KurtKrathmandStatic/public/index.html
 
 ## Notes
-This is a mockup only. Remove the comments and the hidden admin pattern when the site is ready to be published.
+- The live branding is `Krathmand`.
+- The archive folder contains older naming and layout experiments and should be treated as read-only.
+- The admin interface is protected by the app’s own session-based authentication and should not be documented with public key-based URLs.
