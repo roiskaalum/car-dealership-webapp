@@ -3,7 +3,7 @@ const THEME_KEY = 'dealer_theme';
 
 const defaultConfig = window.APP_CONFIG || {
   siteTitle: 'KRATHMAN',
-  logoUrl: '../images/logo.jpg',
+  logoUrl: 'images/logo.jpg',
   primaryColor: '#1e3a8a',
   secondaryColor: '#3b82f6',
   primary: '#123f79',
@@ -460,7 +460,6 @@ function renderCars() {
     <article class="car-card">
       <div class="car-image">
         <span class="new-badge">${car.badge}</span>
-        <span class="fav-badge">♡</span>
         <img src="${car.image}" alt="${car.brand} ${car.model}" />
       </div>
       <div class="card-content">
@@ -574,16 +573,26 @@ function initializeTheme() {
   if (!toggle) return;
 
   const icon = toggle.querySelector('.toggle-icon');
-  const text = toggle.querySelector('.toggle-text');
-  if (icon) icon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
-  if (text) text.textContent = savedTheme === 'dark' ? 'Mørk' : 'Lys';
+  if (!icon) return;
+
+  const sunSvg = `
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 3.5a1 1 0 0 1 1 1V5a1 1 0 1 1-2 0v-.5a1 1 0 0 1 1-1Zm0 15a1 1 0 0 1 1 1V19a1 1 0 1 1-2 0v-.5a1 1 0 0 1 1-1Zm8.5-6.5a1 1 0 0 1 0 2h-.5a1 1 0 1 1 0-2h.5ZM5 12a1 1 0 0 1 0 2H4.5a1 1 0 0 1 0-2H5Zm12.85-5.35a1 1 0 0 1 1.4 0l.35.35a1 1 0 1 1-1.4 1.4l-.35-.35a1 1 0 0 1 0-1.4ZM5.15 17.15a1 1 0 0 1 1.4 0l.35.35a1 1 0 1 1-1.4 1.4l-.35-.35a1 1 0 0 1 0-1.4ZM18.85 17.15a1 1 0 0 1 0 1.4l-.35.35a1 1 0 0 1-1.4-1.4l.35-.35a1 1 0 0 1 1.4 0ZM5.15 6.85a1 1 0 0 1 0 1.4L4.8 8.6a1 1 0 1 1-1.4-1.4l.35-.35a1 1 0 0 1 1.4 0ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" fill="currentColor"/>
+    </svg>
+  `;
+  const moonSvg = `
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.3 14.8A7.95 7.95 0 0 1 9.2 3.7a8.5 8.5 0 1 0 11.1 11.1Z" fill="currentColor"/>
+    </svg>
+  `;
+
+  icon.innerHTML = savedTheme === 'dark' ? moonSvg : sunSvg;
 
   toggle.addEventListener('click', () => {
     const dark = !document.body.classList.contains('dark-theme');
     document.body.classList.toggle('dark-theme', dark);
     localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
-    if (icon) icon.textContent = dark ? '🌙' : '☀️';
-    if (text) text.textContent = dark ? 'Mørk' : 'Lys';
+    icon.innerHTML = dark ? moonSvg : sunSvg;
   });
 }
 

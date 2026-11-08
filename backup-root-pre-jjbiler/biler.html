@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biler – Krathman</title>
     <meta name="description" content="Bilsøgning og brugte biler." />
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
   </head>
   <body data-page="biler">
-    <div id="siteHeader"></div>
+    <div id="site-header"></div>
 
     <main>
       <section class="search-page hero compact-hero">
@@ -18,8 +19,8 @@
         <div class="container hero-inner single-column">
           <div class="hero-copy">
             <p class="eyebrow">Biler</p>
-            <h1 id="bannerTitle">Kvalitetsbiler til Alle</h1>
-            <p id="bannerText">Udforsk udvalget af biler tilgængelige på BilInfo.</p>
+            <h1 data-config="bannerTitle">Kvalitetsbiler til Alle</h1>
+            <p data-config="bannerText">Udforsk udvalget af biler tilgængelige på BilInfo.</p>
           </div>
         </div>
       </section>
@@ -65,7 +66,7 @@
             </div>
 
             <div class="filter-groups">
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="fuel">
                 <p>Brændstof</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="electric" /> El</label>
@@ -75,7 +76,7 @@
                 </div>
               </div>
 
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="body">
                 <p>Biltype</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="suv" /> SUV</label>
@@ -86,7 +87,7 @@
                 </div>
               </div>
 
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="transmission">
                 <p>Gearkasse</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="aut" /> Automatgear</label>
@@ -94,7 +95,7 @@
                 </div>
               </div>
 
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="doors">
                 <p>Døre</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="door-2" /> 2-dørs</label>
@@ -128,8 +129,8 @@
       </section>
     </main>
 
-    <div id="siteFooter"></div>
+    <div id="site-footer"></div>
 
-    <script src="/app.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

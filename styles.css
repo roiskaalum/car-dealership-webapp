@@ -295,8 +295,22 @@ body.dark-theme .main-nav a {
 }
 
 .phone-icon {
-  font-size: 1.2rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-icon svg,
+.toggle-icon svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  display: block;
+}
+
+.toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-toggle {
@@ -314,9 +328,10 @@ body.dark-theme .main-nav a {
 .hero-image {
   position: absolute;
   inset: 0;
-  background-image: url('assets/hero-car.svg');
+  background-image: url('assets/car-hero-image.svg');
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   filter: saturate(1.1) contrast(1.1);
 }
 

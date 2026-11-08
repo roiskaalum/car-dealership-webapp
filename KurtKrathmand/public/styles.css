@@ -213,9 +213,10 @@ body.dark-theme .main-nav a { color: var(--dark-nav-text); }
 .hero-image {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/hero-car.svg');
+  background-image: url('/assets/car-hero-image.svg');
+  background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   filter: saturate(1.1) contrast(1.1);
 }
 .hero-overlay {

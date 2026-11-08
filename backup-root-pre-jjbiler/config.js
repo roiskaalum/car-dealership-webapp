@@ -1,6 +1,6 @@
 window.APP_CONFIG = {
   siteTitle: 'KRATHMAN',
-  logoUrl: '../images/logo.jpg',
+  logoUrl: 'images/logo.jpg',
   primaryColor: '#1e3a8a',
   secondaryColor: '#3b82f6',
   primary: '#123f79',
