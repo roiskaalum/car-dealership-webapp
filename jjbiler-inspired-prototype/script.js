@@ -73,12 +73,39 @@ const appState = {
   selectedModel: 'all',
   selectedPrice: 'all',
   selectedSort: 'newest',
-  selectedFilters: new Set(),
+  selectedFilters: {
+    fuel: [],
+    body: [],
+    transmission: [],
+    doors: []
+  },
   query: ''
 };
 
 const pageMode = document.body.dataset.page || 'home';
 window.BILINFO_FETCH_MODE = window.BILINFO_FETCH_MODE || 'offline';
+
+async function loadPartials() {
+  const partials = [
+    { target: document.getElementById('site-header'), file: 'partials/header.html' },
+    { target: document.getElementById('site-footer'), file: 'partials/footer.html' }
+  ];
+
+  await Promise.all(partials.map(async ({ target, file }) => {
+    if (!target) return;
+    const response = await fetch(file, { cache: 'no-cache' });
+    if (!response.ok) return;
+    target.innerHTML = await response.text();
+  }));
+
+  const currentPage = document.body.dataset.page || 'home';
+  document.querySelectorAll('.nav-link').forEach((link) => {
+    const pageKey = link.dataset.nav;
+    const isHomeLink = pageKey === 'home' && currentPage === 'home';
+    const isMatch = pageKey === currentPage;
+    link.classList.toggle('active', isHomeLink || isMatch);
+  });
+}
 
 function getRandomFeaturedCars(list, count = 6) {
   const copy = [...list];
@@ -197,7 +224,9 @@ function normalizeVehicleType(value) {
   const normalized = (value || '').toLowerCase();
   if (normalized.includes('suv')) return 'suv';
   if (normalized.includes('station')) return 'kombi';
-  if (normalized.includes('vogn')) return 'sedan';
+  if (normalized.includes('kombi')) return 'kombi';
+  if (normalized.includes('van')) return 'van';
+  if (normalized.includes('hatch')) return 'hatchback';
   if (normalized.includes('person')) return 'sedan';
   return 'sedan';
 }
@@ -339,11 +368,20 @@ function populateModelOptions() {
 }
 
 function readSelectedFilters() {
-  const set = new Set();
+  const filters = {
+    fuel: [],
+    body: [],
+    transmission: [],
+    doors: []
+  };
+
   document.querySelectorAll('.filter-options input[type="checkbox"]').forEach((checkbox) => {
-    if (checkbox.checked) set.add(checkbox.value);
+    const group = checkbox.dataset.filterGroup || checkbox.closest('.filter-group')?.dataset.filterGroup;
+    if (!group || !filters[group]) return;
+    if (checkbox.checked) filters[group].push(checkbox.value);
   });
-  appState.selectedFilters = set;
+
+  appState.selectedFilters = filters;
 }
 
 function matchesPriceFilter(car) {
@@ -353,21 +391,23 @@ function matchesPriceFilter(car) {
 }
 
 function matchesCheckboxFilters(car) {
-  if (appState.selectedFilters.size === 0) return true;
+  const selectedFilters = appState.selectedFilters;
 
-  return [...appState.selectedFilters].some((filter) => {
-    if (filter === 'electric') return car.fuel === 'electric';
-    if (filter === 'diesel') return car.fuel === 'diesel';
-    if (filter === 'benzin') return car.fuel === 'benzin';
-    if (filter === 'hybrid') return car.fuel === 'hybrid';
-    if (filter === 'suv') return car.type === 'suv';
-    if (filter === 'hatchback') return car.type === 'hatchback';
-    if (filter === 'sedan') return car.type === 'sedan';
-    if (filter === 'kombi') return car.type === 'kombi';
-    if (filter === 'aut') return car.transmission === 'aut';
-    if (filter === 'man') return car.transmission === 'man';
-    return false;
-  });
+  for (const [group, values] of Object.entries(selectedFilters)) {
+    if (!values.length) continue;
+
+    const isMatch = values.some((value) => {
+      if (group === 'fuel') return car.fuel === value;
+      if (group === 'body') return car.type === value || (value === 'van' && car.type === 'van');
+      if (group === 'transmission') return car.transmission === value;
+      if (group === 'doors') return car.doors === value;
+      return false;
+    });
+
+    if (!isMatch) return false;
+  }
+
+  return true;
 }
 
 function getVisibleCars() {
@@ -383,6 +423,8 @@ function getVisibleCars() {
   filtered.sort((a, b) => {
     if (appState.selectedSort === 'price-low') return a.price - b.price;
     if (appState.selectedSort === 'price-high') return b.price - a.price;
+    if (appState.selectedSort === 'year-old') return a.year - b.year;
+    if (appState.selectedSort === 'year-new') return b.year - a.year;
     return b.year - a.year;
   });
 
@@ -476,6 +518,7 @@ function initializeFilters() {
   const searchInput = document.getElementById('searchInput');
 
   document.querySelectorAll('.filter-options input[type="checkbox"]').forEach((checkbox) => {
+    checkbox.dataset.filterGroup = checkbox.closest('.filter-group')?.dataset.filterGroup || 'fuel';
     checkbox.addEventListener('change', () => {
       readSelectedFilters();
       renderCars();
@@ -521,6 +564,7 @@ function initializeFilters() {
 
   populateBrandOptions();
   populateModelOptions();
+  readSelectedFilters();
 }
 
 function initializeTheme() {
@@ -800,15 +844,16 @@ function initializeAdminPage() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  await loadPartials();
   applyConfig();
   initializeTheme();
-  initializeFilters();
 
   const bilInfoCars = await fetchBilInfoCars();
   if (bilInfoCars.length) {
     cars = bilInfoCars;
   }
 
+  initializeFilters();
   renderCars();
   initializeMailForm();
   initializeAdminPage();

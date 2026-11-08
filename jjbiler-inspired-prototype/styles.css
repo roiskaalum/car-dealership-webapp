@@ -1012,3 +1012,9 @@ select {
     display: none;
   }
 }
+
+.nav-home svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  display: block;
+}

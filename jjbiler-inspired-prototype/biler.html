@@ -10,30 +10,7 @@
     <script src="config.js"></script>
   </head>
   <body data-page="biler">
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <a class="brand" href="index.html" aria-label="Krathman">
-          <img src="../images/logo.jpg" alt="Krathman logo" />
-          <span data-config="siteTitle">Krathman</span>
-        </a>
-
-        <nav class="main-nav" aria-label="Hovednavigation">
-          <a class="nav-home" href="index.html" aria-label="Til forsiden">🏠</a>
-          <a href="biler.html" class="active">Biler</a>
-          <a href="om-os-kontakt.html">Om Os &amp; Kontakt</a>
-        </nav>
-
-        <div class="nav-tools">
-          <a class="phone-pill" href="om-os-kontakt.html#kontakt-os" aria-label="Kontakt os">
-            <span class="phone-icon" aria-hidden="true">📞</span>
-          </a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Skift farvetema">
-            <span class="toggle-icon">☀️</span>
-            <span class="toggle-text">Lys</span>
-          </button>
-        </div>
-      </div>
-    </header>
+    <div id="site-header"></div>
 
     <main>
       <section class="search-page hero compact-hero">
@@ -89,7 +66,7 @@
             </div>
 
             <div class="filter-groups">
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="fuel">
                 <p>Brændstof</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="electric" /> El</label>
@@ -99,7 +76,7 @@
                 </div>
               </div>
 
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="body">
                 <p>Biltype</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="suv" /> SUV</label>
@@ -110,7 +87,7 @@
                 </div>
               </div>
 
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="transmission">
                 <p>Gearkasse</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="aut" /> Automatgear</label>
@@ -118,7 +95,7 @@
                 </div>
               </div>
 
-              <div class="filter-group">
+              <div class="filter-group" data-filter-group="doors">
                 <p>Døre</p>
                 <div class="filter-options">
                   <label><input type="checkbox" value="door-2" /> 2-dørs</label>
@@ -152,30 +129,7 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-grid">
-        <div>
-          <p class="footer-brand" data-config="siteTitle">Krathman</p>
-          <p>© 2026</p>
-        </div>
-        <div>
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="biler.html">Biler</a></li>
-            <li><a href="om-os-kontakt.html">Om Os &amp; Kontakt</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Kontakt</h4>
-          <ul>
-            <li><a data-config="phoneHref" href="tel:+4586628545" data-config-value="contactPhone">+45 86 62 85 45</a></li>
-            <li><a data-config="emailHref" href="mailto:kurt@krathmand.dk" data-config-value="contactEmail">kurt@krathmand.dk</a></li>
-            <li><span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
+    <div id="site-footer"></div>
 
     <script src="script.js"></script>
   </body>

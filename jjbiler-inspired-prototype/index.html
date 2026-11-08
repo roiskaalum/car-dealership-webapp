@@ -13,30 +13,7 @@
     <script src="config.js"></script>
   </head>
   <body data-page="home">
-    <header class="topbar">
-      <div class="container topbar-inner">
-        <a class="brand" href="index.html" aria-label="Krathman">
-          <img src="../images/logo.jpg" alt="Krathman logo" />
-          <span data-config="siteTitle">KRATHMAN</span>
-        </a>
-
-        <nav class="main-nav" aria-label="Hovednavigation">
-          <a class="nav-home active" href="index.html" aria-label="Til forsiden">🏠</a>
-          <a href="biler.html">Biler</a>
-          <a href="om-os-kontakt.html">Om Os &amp; Kontakt</a>
-        </nav>
-
-        <div class="nav-tools">
-          <a class="phone-pill" href="#kontakt-os" aria-label="Kontakt os">
-            <span class="phone-icon" aria-hidden="true">📞</span>
-          </a>
-          <button class="theme-toggle" id="themeToggle" aria-label="Skift farvetema">
-            <span class="toggle-icon">☀️</span>
-            <span class="toggle-text">Lys</span>
-          </button>
-        </div>
-      </div>
-    </header>
+    <div id="site-header"></div>
 
     <main id="top">
       <section class="hero">
@@ -178,31 +155,7 @@
 
     </main>
 
-    <footer class="site-footer" id="sold">
-      <div class="container footer-grid">
-        <div>
-          <p class="footer-brand">KRATHMAN</p>
-          <p>© 2026</p>
-        </div>
-
-        <div>
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="biler.html">Biler</a></li>
-            <li><a href="om-os-kontakt.html">Om Os &amp; Kontakt</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4>Kontakt</h4>
-          <ul>
-            <li><a data-config="phoneHref" href="tel:+4586628545" data-config-value="contactPhone">+45 86 62 85 45</a></li>
-            <li><a data-config="emailHref" href="mailto:kurt@krathmand.dk" data-config-value="contactEmail">kurt@krathmand.dk</a></li>
-            <li><span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span></li>
-          </ul>
-        </div>
-      </div>
-    </footer>
+    <div id="site-footer"></div>
 
     <script src="script.js"></script>
   </body>

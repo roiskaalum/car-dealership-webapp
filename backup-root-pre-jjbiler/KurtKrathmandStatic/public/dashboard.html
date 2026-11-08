@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard – Krathman</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      body {
+        background: linear-gradient(135deg, #0f172a, #111827 60%, #0b1220);
+        color: #f4f7fb;
+      }
+      .admin-shell {
+        max-width: 1100px;
+        width: min(94vw, 1100px);
+        margin: 80px auto;
+        background: rgba(17, 24, 39, 0.9);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 24px;
+        box-shadow: 0 20px 44px rgba(0, 0, 0, 0.2);
+        padding: 32px;
+      }
+      .admin-shell h1 { margin: 0 0 12px; font-size: clamp(2rem, 3vw, 3rem); }
+      .admin-shell p { margin: 0 0 18px; color: #c7d2fe; }
+      .admin-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .admin-nav a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .panel {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 18px;
+        padding: 18px;
+      }
+      .field {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      input, textarea, button {
+        font: inherit;
+      }
+      input, textarea {
+        width: 100%;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        color: #f4f7fb;
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      textarea { min-height: 100px; resize: vertical; }
+      .primary-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .secondary-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        padding: 12px 18px;
+        background: transparent;
+        color: #f4f7fb;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        cursor: pointer;
+      }
+      .status {
+        min-height: 24px;
+        color: #bfdbfe;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-shell">
+      <div class="admin-nav">
+        <a href="/index.html">← Forside</a>
+        <button class="secondary-btn" type="button" id="logoutBtn">Log ud</button>
+      </div>
+
+      <h1>Website dashboard</h1>
+      <p>Dette er et simpelt adminpanel til at tilpasse de grundlæggende informationer.</p>
+
+      <div class="panel">
+        <form id="basicSettingsForm">
+          <div class="field">
+            <label for="siteTitleInput">Website titel</label>
+            <input id="siteTitleInput" type="text" value="KRATHMAN" />
+          </div>
+          <div class="field">
+            <label for="phoneInput">Telefon</label>
+            <input id="phoneInput" type="text" value="+45 86 62 85 45" />
+          </div>
+          <div class="field">
+            <label for="emailInput">E-mail</label>
+            <input id="emailInput" type="text" value="kurt@krathmand.dk" />
+          </div>
+          <div class="field">
+            <label for="addressInput">Adresse</label>
+            <input id="addressInput" type="text" value="Fabrikvej 1 8800 Viborg" />
+          </div>
+          <div class="field">
+            <label for="logoInput">Logo URL</label>
+            <input id="logoInput" type="text" value="/assets/logo.jpg" />
+          </div>
+          <button class="primary-btn" type="submit">Gem ændringer</button>
+          <div class="status" id="statusMessage"></div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function requireSession() {
+        const session = localStorage.getItem('staticAdminSession');
+        if (session !== 'active') {
+          window.location.href = '/login.html';
+        }
+      }
+
+      function saveSettings() {
+        const settings = {
+          siteTitle: document.getElementById('siteTitleInput').value,
+          contactPhone: document.getElementById('phoneInput').value,
+          contactEmail: document.getElementById('emailInput').value,
+          contactAddress: document.getElementById('addressInput').value,
+          logoUrl: document.getElementById('logoInput').value
+        };
+        localStorage.setItem('krathmanSettings', JSON.stringify(settings));
+        document.getElementById('statusMessage').textContent = 'Gemte ændringer.';
+      }
+
+      function loadSettings() {
+        const saved = JSON.parse(localStorage.getItem('krathmanSettings') || '{}');
+        if (saved.siteTitle) document.getElementById('siteTitleInput').value = saved.siteTitle;
+        if (saved.contactPhone) document.getElementById('phoneInput').value = saved.contactPhone;
+        if (saved.contactEmail) document.getElementById('emailInput').value = saved.contactEmail;
+        if (saved.contactAddress) document.getElementById('addressInput').value = saved.contactAddress;
+        if (saved.logoUrl) document.getElementById('logoInput').value = saved.logoUrl;
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        requireSession();
+        loadSettings();
+
+        document.getElementById('basicSettingsForm').addEventListener('submit', (event) => {
+          event.preventDefault();
+          saveSettings();
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+          localStorage.removeItem('staticAdminSession');
+          window.location.href = '/login.html';
+        });
+      });
+    </script>
+  </body>
+</html>

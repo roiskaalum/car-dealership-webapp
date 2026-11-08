@@ -43,10 +43,82 @@
       .admin-lock { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
       .readability-preview { display: grid; gap: 6px; padding: 12px 14px; border-radius: 12px; border: 1px dashed var(--border); background: rgba(59,130,246,0.06); color: var(--text); }
       .readability-preview strong { color: #fff; }
+      .topbar {
+        background: rgba(17, 24, 39, 0.9);
+        border-bottom: 1px solid var(--border);
+        padding: 0 20px;
+      }
+      .topbar .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        min-height: 82px;
+      }
+      .topbar a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .topbar .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+      .topbar .brand img {
+        width: 42px;
+        height: 42px;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+      .topbar .main-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+      .topbar .nav-home {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.3rem;
+        height: 1.3rem;
+      }
+      .topbar svg {
+        width: 1.3rem;
+        height: 1.3rem;
+        display: block;
+      }
     </style>
     <script src="config.js"></script>
   </head>
   <body>
+    <div class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="index.html" aria-label="Krathman">
+          <img src="../images/logo.jpg" alt="Krathman logo" />
+          <span>KRATHMAN</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Hovednavigation">
+          <a class="nav-home" href="index.html" aria-label="Til forsiden">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 10.5 12 3l9 7.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+              <path d="M5.5 9.5V20h13V9.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+              <path d="M10 20v-6h4v6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"></path>
+            </svg>
+          </a>
+          <a href="index.html">Forside</a>
+          <a href="biler.html">Biler</a>
+          <a href="om-os-kontakt.html">Om Os &amp; Kontakt</a>
+        </nav>
+      </div>
+    </div>
+
     <div class="admin-shell" id="adminContent"></div>
     <script src="script.js"></script>
   </body>
