@@ -112,6 +112,7 @@ body.dark-theme .contact-form textarea {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }
 
 body {
@@ -273,13 +274,48 @@ body.dark-theme .main-nav a {
   gap: 12px;
 }
 
+.scroll-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #1d4ed8;
+  border-radius: 50%;
+  background: #1d4ed8;
+  color: #ffffff;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.26);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.scroll-top:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.32);
+}
+
+.scroll-top-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-top-icon svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  display: block;
+}
+
 .phone-pill,
 .theme-toggle {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
   color: #fff;
@@ -296,7 +332,8 @@ body.dark-theme .main-nav a {
   background: rgba(255, 255, 255, 0.08);
 }
 
-.phone-icon {
+.phone-icon,
+.toggle-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -307,12 +344,6 @@ body.dark-theme .main-nav a {
   width: 1.15rem;
   height: 1.15rem;
   display: block;
-}
-
-.toggle-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .theme-toggle {
