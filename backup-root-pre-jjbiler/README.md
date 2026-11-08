@@ -7,19 +7,7 @@ This folder is a separate mockup and is intentionally not replacing the original
 - hero banner with overlaid search panel
 - sorting and filtering controls for common car attributes
 - additional sections inspired by the dealer layout structure
-- hidden admin page pattern for safer internal editing without a login system
 
-## Public site and admin access
-The public site is served as normal from this folder.
-The admin page is intentionally hidden and not linked from the UI. It is only reachable by using the hidden slug in config.js.
-
-Example:
-- http://localhost:8000/jjbiler-inspired-prototype/admin.html?key=x8fD4r7nQ2
-
-The actual key is stored in:
-- config.js
-
-Do not expose this in the public templates or navigation.
 
 ## Hero image placeholder
 The hero uses a local SVG placeholder created for the layout:
@@ -46,3 +34,19 @@ Then open:
 
 ## Notes
 This is a mockup only. Remove the comments and the hidden admin pattern when the site is ready to be published.
+
+# Historical archive
+
+This folder preserves an older prototype iteration of the dealership website for reference only.
+
+It is not part of the live site and should be treated as read-only legacy material.
+
+## Contents
+- old static prototype layout
+- earlier branding experiments
+- historical config and mock content
+
+## Notes
+- The live site branding is now `Krathmand`.
+- Older variants such as `krathmandDd` and `krathmandDdd` were part of the prior prototype work and remain here only for archival context.
+- The admin pattern in this archive is historical and not used in the active production app.
