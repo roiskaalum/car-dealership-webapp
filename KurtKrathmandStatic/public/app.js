@@ -1,196 +1,849 @@
-const defaultConfig = {
+const THEME_KEY = 'dealer_theme';
+
+const defaultConfig = window.APP_CONFIG || {
   siteTitle: 'Krathmand',
-  logoUrl: '/assets/logo.jpg',
-  contactPhone: '+45 86 62 85 45',
-  contactEmail: 'kurt@krathmand.dk',
-  contactAddress: 'Fabrikvej 1 8800 Viborg',
-  contactHours: 'Efter aftale',
+  logoUrl: 'images/logo.jpg',
+  primaryColor: '#1e3a8a',
+  secondaryColor: '#3b82f6',
+  primary: '#123f79',
+  primaryDark: '#0d2d5d',
+  primaryLight: '#dfeeff',
+  accent: '#1e88e5',
+  navText: '#edf6ff',
+  darkNavText: '#1e88e5',
+  background: '#f4f7fb',
+  backgroundAlt: '#edf3fb',
+  panel: '#ffffff',
+  panelStrong: '#0f172a',
+  panelSoft: '#eaf2ff',
+  text: '#111827',
+  textSoft: '#53627a',
+  border: 'rgba(15, 23, 42, 0.12)',
+  darkPrimary: '#1d4ed8',
+  darkPrimaryDark: '#0f2f69',
+  darkPrimaryLight: '#bfdcff',
+  darkAccent: '#63b3ff',
+  darkBackground: '#0f172a',
+  darkBackgroundAlt: '#111c2d',
+  darkPanel: '#152333',
+  darkPanelStrong: '#101c2d',
+  darkPanelSoft: '#1a2c42',
+  darkText: '#edf3ff',
+  darkTextSoft: '#a7b7cf',
+  darkBorder: 'rgba(148, 163, 184, 0.18)',
+  bannerTitle: 'Kvalitetsbiler til Alle',
+  bannerText: 'Udforsk udvalget af biler tilgængelige på BilInfo.',
   homeHeroTitle: 'Find den rette bil hos Krathmand',
-  homeHeroText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre.',
+  homeHeroText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et velholdt udvalg af brugte biler og personlig service med fokus på ærlighed, kvalitet og en god oplevelse fra første kontakt til købesummering.',
   homeAboutHeading: 'Vi har altid ca. 25 biler på lager',
-  homeAboutText: 'Krathmand er kendt for at kombinere mange års erfaring med personlig service.',
+  homeAboutText: 'Krathmand er kendt for at kombinere mange års erfaring med personlig service, som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.',
   serviceTitle1: 'Lav gerne en aftale i forvejen',
-  serviceText1: 'Det er altid en god idé at ringe i forvejen.',
+  serviceText1: 'Det er altid en god idé at ringe i forvejen, inden du besøger os. Då vi kan sikre, at vi har åbent, er klar til at tage imod dig og kan give dig tiden og den service, du fortjener.',
   serviceTitle2: 'Vi guider dig til den rigtige bil',
-  serviceText2: 'Uanset om du vil have en lille bybil eller en familiebil, vi hjælper dig.',
+  serviceText2: 'Uanset om du vil have en lille bybil, en praktisk familiebil, en meget økonomisk diesel eller en moderne elbil, så hjælper vi med at finde en løsning, der passer til dit behov.',
   contactSectionTitle: 'Kontakt os',
-  contactSectionText: 'Vi er altid klar til at hjælpe dig med at finde den rigtige bil.',
+  contactSectionText: 'Vi er altid klar til at hjælpe dig med at finde den rigtige bil til dig og din hverdag.',
   ownerName: 'Kurt Krathmand',
   ownerPhoto: 'https://media.istockphoto.com/id/587805156/vector/profile-picture-vector-illustration.jpg?s=612x612&w=is&k=20&c=-Jq_6tAjuYieAjOB5B1CyUXSrD_tKE3IKZwVGIjn8-8=',
   aboutHeading: 'Krathmand',
   aboutText: 'Krathmand er din leverandør af kvalitetsbiler i alle aldre.',
-  bannerTitle: 'Kvalitetsbiler til Alle',
-  bannerText: 'Udforsk udvalget af biler tilgængelige på BilInfo.'
+  contactPhone: '+45 86 62 85 45',
+  contactPhoneHref: 'tel:+4586628545',
+  contactEmail: 'kurt@krathmand.dk',
+  contactEmailHref: 'mailto:kurt@krathmand.dk',
+  contactAddress: 'Fabrikvej 1 8800 Viborg',
+  contactHours: 'Efter aftale'
 };
 
 const starterCars = [
-  { brand: 'Audi', model: 'A4', year: 2021, price: 285000, fuel: 'benzin', doors: 'door-4', transmission: 'aut', type: 'sedan', image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80', badge: 'Nyhed' },
-  { brand: 'BMW', model: '320d', year: 2020, price: 265000, fuel: 'diesel', doors: 'door-4', transmission: 'aut', type: 'sedan', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80', badge: 'Premium' },
-  { brand: 'Volkswagen', model: 'Golf', year: 2022, price: 220000, fuel: 'hybrid', doors: 'door-4', transmission: 'aut', type: 'hatchback', image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80', badge: 'Nyhed' },
-  { brand: 'Volvo', model: 'XC60', year: 2019, price: 340000, fuel: 'diesel', doors: 'door-4', transmission: 'aut', type: 'suv', image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80', badge: 'SUV' },
-  { brand: 'Peugeot', model: '2008', year: 2017, price: 64900, fuel: 'diesel', doors: 'door-4', transmission: 'man', type: 'suv', image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80', badge: 'Tilbud' },
-  { brand: 'Tesla', model: 'Model 3', year: 2022, price: 289900, fuel: 'electric', doors: 'door-4', transmission: 'aut', type: 'sedan', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80', badge: 'Elbil' }
+  { id: 'demo-audi-a4', brand: 'Audi', model: 'A4', year: 2021, price: 285000, fuel: 'benzin', doors: 'door-4', transmission: 'aut', type: 'sedan', image: 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80', badge: 'Nyhed' },
+  { id: 'demo-bmw-320d', brand: 'BMW', model: '320d', year: 2020, price: 265000, fuel: 'diesel', doors: 'door-4', transmission: 'aut', type: 'sedan', image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80', badge: 'Premium' },
+  { id: 'demo-vw-golf', brand: 'Volkswagen', model: 'Golf', year: 2022, price: 220000, fuel: 'hybrid', doors: 'door-4', transmission: 'aut', type: 'hatchback', image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80', badge: 'Nyhed' },
+  { id: 'demo-volvo-xc60', brand: 'Volvo', model: 'XC60', year: 2019, price: 340000, fuel: 'diesel', doors: 'door-4', transmission: 'aut', type: 'suv', image: 'https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80', badge: 'SUV' },
+  { id: 'demo-peugeot-2008', brand: 'Peugeot', model: '2008', year: 2017, price: 64900, fuel: 'diesel', doors: 'door-4', transmission: 'man', type: 'suv', image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80', badge: 'Tilbud' },
+  { id: 'demo-tesla-model3', brand: 'Tesla', model: 'Model 3', year: 2022, price: 289900, fuel: 'electric', doors: 'door-4', transmission: 'aut', type: 'sedan', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80', badge: 'Elbil' }
 ];
 
 let cars = [...starterCars];
+let siteConfig = { ...defaultConfig };
+
+const appState = {
+  selectedBrand: 'all',
+  selectedModel: 'all',
+  selectedPrice: 'all',
+  selectedSort: 'newest',
+  selectedFilters: {
+    fuel: [],
+    body: [],
+    transmission: [],
+    doors: []
+  },
+  query: ''
+};
+
+const pageMode = document.body.dataset.page || 'home';
+
+async function loadPartials() {
+  const partials = [
+    { target: document.getElementById('site-header'), file: 'partials/header.html' },
+    { target: document.getElementById('site-footer'), file: 'partials/footer.html' }
+  ];
+
+  await Promise.all(partials.map(async ({ target, file }) => {
+    if (!target) return;
+    const response = await fetch(file, { cache: 'no-cache' });
+    if (!response.ok) return;
+    target.innerHTML = await response.text();
+  }));
+
+  const currentPage = document.body.dataset.page || 'home';
+  document.querySelectorAll('.nav-link').forEach((link) => {
+    const pageKey = link.dataset.nav;
+    const isHomeLink = pageKey === 'home' && currentPage === 'home';
+    const isMatch = pageKey === currentPage || (pageKey === 'biler' && currentPage === 'car-detail');
+    link.classList.toggle('active', isHomeLink || isMatch);
+  });
+}
+
+function getRandomFeaturedCars(list, count = 6) {
+  const copy = [...list];
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+  return copy.slice(0, count);
+}
+
+function getCurrentConfig() {
+  return { ...defaultConfig, ...siteConfig };
+}
+
+async function loadConfig() {
+  try {
+    const response = await fetch('/api/config', { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Config request failed (${response.status}).`);
+    const result = await response.json();
+    if (!result.ok || !result.config) throw new Error('Config response was invalid.');
+    siteConfig = { ...defaultConfig, ...result.config };
+  } catch (error) {
+    console.warn('Could not load shared config; using the public defaults.', error);
+    siteConfig = { ...defaultConfig };
+  }
+}
+
+function applyConfig() {
+  const config = getCurrentConfig();
+  const lightPalette = {
+    '--primary': config.primary || config.primaryColor || '#123f79',
+    '--primary-dark': config.primaryDark || config.primaryColor || '#0d2d5d',
+    '--primary-light': config.primaryLight || '#dfeeff',
+    '--accent': config.accent || config.secondaryColor || '#1e88e5',
+    '--nav-text': config.navText || '#edf6ff',
+    '--dark-nav-text': config.darkNavText || config.darkAccent || config.accent || '#1e88e5',
+    '--bg': config.background || '#f4f7fb',
+    '--bg-alt': config.backgroundAlt || '#edf3fb',
+    '--panel': config.panel || '#ffffff',
+    '--panel-strong': config.panelStrong || '#0f172a',
+    '--panel-soft': config.panelSoft || '#eaf2ff',
+    '--text': config.text || '#111827',
+    '--text-soft': config.textSoft || '#53627a',
+    '--border': config.border || 'rgba(15, 23, 42, 0.12)',
+    '--dark-bg': config.darkBackground || '#0f172a',
+    '--dark-bg-alt': config.darkBackgroundAlt || '#111c2d',
+    '--dark-panel': config.darkPanel || '#152333',
+    '--dark-panel-strong': config.darkPanelStrong || '#101c2d',
+    '--dark-panel-soft': config.darkPanelSoft || '#1a2c42',
+    '--dark-text': config.darkText || '#edf3ff',
+    '--dark-text-soft': config.darkTextSoft || '#a7b7cf',
+    '--dark-border': config.darkBorder || 'rgba(148, 163, 184, 0.18)',
+    '--dark-primary': config.darkPrimary || '#1d4ed8',
+    '--dark-primary-dark': config.darkPrimaryDark || '#0f2f69',
+    '--dark-primary-light': config.darkPrimaryLight || '#bfdcff',
+    '--dark-accent': config.darkAccent || '#63b3ff',
+    '--dark-warning': config.darkWarning || '#fbbf24',
+    '--dark-success': config.darkSuccess || '#34d399'
+  };
+
+  Object.entries(lightPalette).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(key, value);
+  });
+
+  document.querySelectorAll('[data-config]').forEach((element) => {
+    const key = element.dataset.config;
+    if (key === 'siteTitle') element.textContent = config.siteTitle;
+    if (key === 'contactPhone') element.textContent = config.contactPhone;
+    if (key === 'contactEmail') element.textContent = config.contactEmail;
+    if (key === 'contactAddress') element.textContent = config.contactAddress;
+    if (key === 'contactHours') element.textContent = config.contactHours;
+    if (key === 'bannerTitle') element.textContent = config.bannerTitle;
+    if (key === 'bannerText') element.textContent = config.bannerText;
+    if (key === 'homeHeroTitle') element.textContent = config.homeHeroTitle;
+    if (key === 'homeHeroText') element.textContent = config.homeHeroText;
+    if (key === 'homeAboutHeading') element.textContent = config.homeAboutHeading;
+    if (key === 'homeAboutText') element.textContent = config.homeAboutText;
+    if (key === 'serviceTitle1') element.textContent = config.serviceTitle1;
+    if (key === 'serviceText1') element.textContent = config.serviceText1;
+    if (key === 'serviceTitle2') element.textContent = config.serviceTitle2;
+    if (key === 'serviceText2') element.textContent = config.serviceText2;
+    if (key === 'contactSectionTitle') element.textContent = config.contactSectionTitle;
+    if (key === 'contactSectionText') element.textContent = config.contactSectionText;
+    if (key === 'aboutHeading') element.textContent = config.aboutHeading || config.ownerName;
+    if (key === 'aboutText') element.textContent = config.aboutText;
+    if (key === 'ownerName') element.textContent = config.ownerName;
+    if (key === 'ownerPhoto' && element.tagName === 'IMG') element.src = config.ownerPhoto;
+    if (key === 'logoUrl' && element.tagName === 'IMG') element.src = config.logoUrl;
+    if (key === 'phoneHref') element.href = config.contactPhoneHref || `tel:${config.contactPhone.replace(/\s+/g, '').replace('+', '')}`;
+    if (key === 'emailHref') element.href = config.contactEmailHref || `mailto:${config.contactEmail}`;
+  });
+
+  document.querySelectorAll('[data-config-value]').forEach((element) => {
+    const key = element.dataset.configValue;
+    if (key === 'contactPhone') element.textContent = config.contactPhone;
+    if (key === 'contactEmail') element.textContent = config.contactEmail;
+    if (key === 'contactAddress') element.textContent = config.contactAddress;
+  });
+}
 
 function formatPrice(value) {
   return new Intl.NumberFormat('da-DK', { style: 'currency', currency: 'DKK', maximumFractionDigits: 0 }).format(value);
 }
 
-function applyConfig() {
-  const siteTitleEls = document.querySelectorAll('#siteTitle, #footerBrand');
-  siteTitleEls.forEach((el) => {
-    el.textContent = defaultConfig.siteTitle;
-  });
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  })[character]);
+}
 
-  const ids = ['homeHeroTitle','homeHeroText','homeAboutHeading','homeAboutText','serviceTitle1','serviceText1','serviceTitle2','serviceText2','contactSectionTitle','contactSectionText','contactAddress','contactHours','ownerName','aboutHeading','aboutText','bannerTitle','bannerText'];
-  ids.forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const map = {
-        homeHeroTitle: defaultConfig.homeHeroTitle,
-        homeHeroText: defaultConfig.homeHeroText,
-        homeAboutHeading: defaultConfig.homeAboutHeading,
-        homeAboutText: defaultConfig.homeAboutText,
-        serviceTitle1: defaultConfig.serviceTitle1,
-        serviceText1: defaultConfig.serviceText1,
-        serviceTitle2: defaultConfig.serviceTitle2,
-        serviceText2: defaultConfig.serviceText2,
-        contactSectionTitle: defaultConfig.contactSectionTitle,
-        contactSectionText: defaultConfig.contactSectionText,
-        contactAddress: defaultConfig.contactAddress,
-        contactHours: defaultConfig.contactHours,
-        ownerName: defaultConfig.ownerName,
-        aboutHeading: defaultConfig.aboutHeading,
-        aboutText: defaultConfig.aboutText,
-        bannerTitle: defaultConfig.bannerTitle,
-        bannerText: defaultConfig.bannerText
-      };
-      if (map[id] !== undefined) el.textContent = map[id];
+function normalizeBilInfoText(node) {
+  return node ? node.textContent.trim() : '';
+}
+
+function normalizeFuel(value) {
+  const normalized = (value || '').trim().toLowerCase();
+  if (normalized.includes('diesel')) return 'diesel';
+  if (normalized.includes('hybrid')) return 'hybrid';
+  if (normalized === 'el' || normalized.includes('elbil') || normalized.includes('electric') || normalized.includes('elektrisk')) return 'electric';
+  return 'benzin';
+}
+
+function normalizeTransmission(value) {
+  const normalized = (value || '').trim().toLowerCase();
+  if (normalized === 'a' || normalized.includes('automat') || normalized.includes('automatic') || normalized === 'aut' || /\baut\./.test(normalized)) return 'aut';
+  if (normalized === 'm' || normalized.includes('manuel') || normalized.includes('manual') || normalized === 'man' || /\bman\./.test(normalized)) return 'man';
+  return '';
+}
+
+function normalizeVehicleType(value) {
+  const normalized = (value || '').toLowerCase();
+  if (normalized.includes('suv')) return 'suv';
+  if (normalized.includes('station')) return 'kombi';
+  if (normalized.includes('kombi')) return 'kombi';
+  if (normalized.includes('van')) return 'van';
+  if (normalized.includes('hatch')) return 'hatchback';
+  if (normalized.includes('person')) return 'sedan';
+  return 'sedan';
+}
+
+function normalizeDoors(value) {
+  const parsed = Number.parseInt(value, 10);
+  if (Number.isFinite(parsed) && parsed >= 2) {
+    if (parsed === 2) return 'door-2';
+    if (parsed === 4) return 'door-4';
+    return 'door-5';
+  }
+  return 'door-4';
+}
+
+function normalizeImageUrl(url) {
+  if (!url || !url.trim()) return '';
+  try {
+    const parsed = new URL(url.trim(), window.location.origin);
+    if (parsed.protocol === 'http:' || parsed.protocol === 'https:') return parsed.href;
+  } catch (error) {
+    console.warn('Ignoring an invalid vehicle image URL.', error);
+  }
+  return '';
+}
+
+function getFallbackCarImage(brand, model) {
+  return `https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80&text=${encodeURIComponent(brand + ' ' + model)}`;
+}
+
+function getBilInfoImages(vehicleNode) {
+  const imageNodes = Array.from(vehicleNode.querySelectorAll(
+    'Pictures Url, Pictures Picture, Pictures string, ImageUrl, MainImageUrl, MainPictureUrl, PictureUrl, Image, Picture'
+  ));
+  const values = imageNodes.map(normalizeBilInfoText).filter(Boolean);
+  if (!values.length) {
+    const pictures = vehicleNode.querySelector('Pictures');
+    if (pictures && pictures.children.length === 0) values.push(normalizeBilInfoText(pictures));
+  }
+  return [...new Set(values.map(normalizeImageUrl).filter(Boolean))];
+}
+
+function normalizeBilInfoVehicle(vehicleNode, index) {
+  const getText = (selector) => normalizeBilInfoText(vehicleNode.querySelector(selector));
+  const make = getText('Make') || 'Ukendt';
+  const model = getText('Model') || getText('Variant') || 'Ukendt';
+  const variant = getText('Variant');
+  const images = getBilInfoImages(vehicleNode);
+  const doors = getText('NumberOfDoors');
+  const year = Number.parseInt(getText('Year'), 10) || 0;
+  const mileage = Number.parseInt((getText('Mileage') || '').replace(/[^0-9]/g, ''), 10) || 0;
+  const price = Number.parseInt((getText('Price') || getText('CashPrice') || getText('NewPrice') || '0').replace(/[^0-9]/g, ''), 10) || 0;
+  const fuel = normalizeFuel(getText('Propellant'));
+  const transmissionValue = getText('GearType');
+  const transmission = transmissionValue ? normalizeTransmission(transmissionValue) : '';
+  const type = normalizeVehicleType(getText('Type'));
+  const doorCode = doors ? normalizeDoors(doors) : '';
+
+  return {
+    id: `bilinfo-${getText('VehicleId') || getText('VehicleSourceId') || getText('Id') || index + 1}`,
+    brand: make,
+    model: variant ? `${model} ${variant}` : model,
+    year,
+    price,
+    mileage,
+    fuel,
+    doors: doorCode,
+    transmission,
+    type,
+    image: images[0] || getFallbackCarImage(make, model),
+    images,
+    isFallbackImage: !images.length,
+    badge: 'BilInfo'
+  };
+}
+
+function parseBilInfoXml(xmlText) {
+  if (!xmlText || typeof xmlText !== 'string') return [];
+
+  const parser = new DOMParser();
+  let doc = parser.parseFromString(xmlText, 'application/xml');
+  let parseError = doc.querySelector('parsererror');
+  if (parseError) {
+    const compatibleXml = xmlText.replace(
+      /&(?!#\d+;|#x[\da-f]+;|amp;|lt;|gt;|quot;|apos;)/gi,
+      '&amp;'
+    );
+    if (compatibleXml === xmlText) {
+      console.warn('BilInfo XML could not be parsed:', parseError.textContent);
+      return [];
     }
+
+    doc = parser.parseFromString(compatibleXml, 'application/xml');
+    parseError = doc.querySelector('parsererror');
+    if (parseError) {
+      console.warn('BilInfo XML could not be parsed after URL compatibility handling:', parseError.textContent);
+      return [];
+    }
+  }
+
+  return Array.from(doc.querySelectorAll('Vehicle')).map((node, index) => normalizeBilInfoVehicle(node, index));
+}
+
+async function fetchLocalBilInfoXml() {
+  const response = await fetch('./bilinfo-offline.xml', { cache: 'no-cache' });
+  if (!response.ok) {
+    throw new Error(`Offline BilInfo XML not found: ${response.status}`);
+  }
+  return response.text();
+}
+
+async function fetchLiveBilInfoXml() {
+  const response = await fetch('/api/cars.xml', { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`Vehicle inventory request failed with status ${response.status}`);
+  }
+  return response.text();
+}
+
+async function fetchBilInfoCars() {
+  try {
+    const xmlText = await fetchLiveBilInfoXml();
+    const parsed = parseBilInfoXml(xmlText);
+    if (!parsed.length) throw new Error('Vehicle inventory contained no usable cars.');
+    return parsed;
+  } catch (error) {
+    console.warn('Worker inventory request failed; trying the bundled offline inventory.', error);
+    try {
+      const fallbackXml = await fetchLocalBilInfoXml();
+      const parsed = parseBilInfoXml(fallbackXml);
+      if (parsed.length) return parsed;
+    } catch (fallbackError) {
+      console.warn('Bundled offline inventory could not be loaded.', fallbackError);
+    }
+    return [...starterCars];
+  }
+}
+
+function populateBrandOptions() {
+  const select = document.getElementById('brandSelect');
+  if (!select) return;
+  const brands = ['all', ...new Set(cars.map((car) => car.brand))];
+  select.innerHTML = brands.map((brand) => `<option value="${escapeHtml(brand)}">${brand === 'all' ? 'Alle mærker' : escapeHtml(brand)}</option>`).join('');
+  select.value = appState.selectedBrand;
+}
+
+function populateModelOptions() {
+  const select = document.getElementById('modelSelect');
+  if (!select) return;
+  const selectedBrand = appState.selectedBrand;
+  const modelList = selectedBrand === 'all'
+    ? [...new Set(cars.map((car) => car.model))]
+    : [...new Set(cars.filter((car) => car.brand === selectedBrand).map((car) => car.model))];
+
+  select.innerHTML = '<option value="all">Alle modeller</option>' + modelList.map((model) => `<option value="${escapeHtml(model)}">${escapeHtml(model)}</option>`).join('');
+  if (!modelList.includes(appState.selectedModel)) appState.selectedModel = 'all';
+  select.value = appState.selectedModel;
+}
+
+function readSelectedFilters() {
+  const filters = {
+    fuel: [],
+    body: [],
+    transmission: [],
+    doors: []
+  };
+
+  document.querySelectorAll('.filter-options input[type="checkbox"]').forEach((checkbox) => {
+    const group = checkbox.dataset.filterGroup || checkbox.closest('.filter-group')?.dataset.filterGroup;
+    if (!group || !filters[group]) return;
+    if (checkbox.checked) filters[group].push(checkbox.value);
   });
 
-  const phoneLink = document.getElementById('contactPhoneLink') || document.getElementById('footerPhoneLink') || document.getElementById('contactPhoneFooterLink');
-  const emailLink = document.getElementById('contactEmailLink') || document.getElementById('footerEmailLink') || document.getElementById('contactEmailFooterLink');
-  const ownerPhoto = document.getElementById('ownerPhoto');
+  appState.selectedFilters = filters;
+}
 
-  if (phoneLink) {
-    phoneLink.href = `tel:${defaultConfig.contactPhone.replace(/\s+/g, '').replace('+', '')}`;
-    phoneLink.textContent = defaultConfig.contactPhone;
-  }
-  if (emailLink) {
-    emailLink.href = `mailto:${defaultConfig.contactEmail}`;
-    emailLink.textContent = defaultConfig.contactEmail;
-  }
-  if (ownerPhoto) ownerPhoto.src = defaultConfig.ownerPhoto;
+function matchesPriceFilter(car) {
+  if (appState.selectedPrice === 'all') return true;
+  const [min, max] = appState.selectedPrice.split('-').map(Number);
+  return car.price >= min && car.price <= max;
+}
 
-  const addressEls = document.querySelectorAll('#contactAddress, #footerAddress');
-  addressEls.forEach((el) => {
-    el.textContent = defaultConfig.contactAddress;
+function matchesCheckboxFilters(car) {
+  const selectedFilters = appState.selectedFilters;
+
+  for (const [group, values] of Object.entries(selectedFilters)) {
+    if (!values.length) continue;
+
+    const isMatch = values.some((value) => {
+      if (group === 'fuel') return car.fuel === value;
+      if (group === 'body') return car.type === value || (value === 'van' && car.type === 'van');
+      if (group === 'transmission') return car.transmission === value;
+      if (group === 'doors') return car.doors === value;
+      return false;
+    });
+
+    if (!isMatch) return false;
+  }
+
+  return true;
+}
+
+function getVisibleCars() {
+  let filtered = cars.filter((car) => {
+    const brandMatch = appState.selectedBrand === 'all' || car.brand === appState.selectedBrand;
+    const modelMatch = appState.selectedModel === 'all' || car.model === appState.selectedModel;
+    const searchMatch = !appState.query || `${car.brand} ${car.model} ${car.fuel}`.toLowerCase().includes(appState.query.toLowerCase());
+    const priceMatch = matchesPriceFilter(car);
+    const checkboxMatch = matchesCheckboxFilters(car);
+    return brandMatch && modelMatch && searchMatch && priceMatch && checkboxMatch;
   });
 
-  const logoImg = document.querySelector('.brand img');
-  if (logoImg) logoImg.src = defaultConfig.logoUrl;
+  filtered.sort((a, b) => {
+    if (appState.selectedSort === 'price-low') return a.price - b.price;
+    if (appState.selectedSort === 'price-high') return b.price - a.price;
+    if (appState.selectedSort === 'year-old') return a.year - b.year;
+    if (appState.selectedSort === 'year-new') return b.year - a.year;
+    return b.year - a.year;
+  });
+
+  return filtered;
 }
 
 function renderCars() {
   const grid = document.getElementById('carGrid');
+  const countEl = document.getElementById('inventoryCount');
+  const summaryEl = document.getElementById('filterSummary');
   if (!grid) return;
 
-  grid.innerHTML = cars.map((car) => `
-    <article class="car-card">
+  const fullMatchCars = getVisibleCars();
+  const visibleCars = pageMode === 'home'
+    ? getRandomFeaturedCars(fullMatchCars.length ? fullMatchCars : cars, 6)
+    : fullMatchCars;
+
+  if (countEl) {
+    const total = pageMode === 'home' ? fullMatchCars.length : fullMatchCars.length;
+    countEl.textContent = `${total} biler fundet`;
+  }
+
+  if (summaryEl) {
+    summaryEl.textContent = pageMode === 'home' ? 'Udvalgte biler til inspiration' : `Viser ${visibleCars.length} biler`;
+  }
+
+  if (visibleCars.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><h3>Ingen biler matcher dine valg</h3><p>Prøv at ændre dine filtre.</p></div>';
+    return;
+  }
+
+  grid.innerHTML = visibleCars.map((car) => `
+    <a class="car-card" href="bil-detalje.html?id=${encodeURIComponent(car.id)}">
       <div class="car-image">
-        <span class="new-badge">${car.badge}</span>
-        <span class="fav-badge">♡</span>
-        <img src="${car.image}" alt="${car.brand} ${car.model}" />
+        <span class="new-badge">${escapeHtml(car.badge)}</span>
+        ${car.isFallbackImage ? '<span class="illustration-badge">Illustration<span class="line-2">Eksempelbillede</span></span>' : ''}
+        <img src="${escapeHtml(car.image)}" alt="${escapeHtml(`${car.brand} ${car.model}`)}" />
       </div>
       <div class="card-content">
         <div class="card-head">
-          <h3>${car.brand} ${car.model}</h3>
+          <h3>${escapeHtml(car.brand)} ${escapeHtml(car.model)}</h3>
           <span class="price-tag">${formatPrice(car.price)}</span>
         </div>
         <ul class="meta-list">
-          <li>År: ${car.year}</li>
-          <li>Brændstof: ${car.fuel}</li>
-          <li>Gearkasse: ${car.transmission === 'aut' ? 'Automatgear' : 'Manuel'}</li>
-          <li>Biltype: ${car.type}</li>
+          <li>År: ${escapeHtml(car.year)}</li>
+          <li>Brændstof: ${escapeHtml(car.fuel)}</li>
+          <li>Gearkasse: ${car.transmission === 'aut' ? 'Automatgear' : car.transmission === 'man' ? 'Manuel' : 'Ikke oplyst'}</li>
+          <li>Biltype: ${escapeHtml(car.type)}</li>
         </ul>
         <div class="card-footer">
           <span>Kontantpris</span>
-          <a href="/biler.html" class="detail-btn">Se mere</a>
+          <span class="detail-btn">Se mere</span>
         </div>
       </div>
-    </article>
+    </a>
   `).join('');
 }
 
+function getVehicleTypeLabel(type) {
+  const labels = {
+    hatchback: 'Hatchback',
+    kombi: 'Stationcar',
+    sedan: 'Sedan',
+    suv: 'SUV',
+    van: 'Varevogn'
+  };
+  return labels[type] || type || '';
+}
+
+function getVehicleFuelLabel(fuel) {
+  const labels = {
+    benzin: 'Benzin',
+    diesel: 'Diesel',
+    electric: 'El',
+    hybrid: 'Hybrid'
+  };
+  return labels[fuel] || fuel || '';
+}
+
+function renderVehicleDetail() {
+  const detail = document.getElementById('vehicleDetail');
+  if (!detail) return;
+
+  const requestedId = new URLSearchParams(window.location.search).get('id');
+  const car = cars.find((vehicle) => vehicle.id === requestedId);
+  if (!car) {
+    document.title = 'Bilen blev ikke fundet – Krathmand';
+    detail.innerHTML = `
+      <div class="empty-state vehicle-not-found">
+        <h1>Bilen blev ikke fundet</h1>
+        <p>Den valgte bil er ikke længere i lagerlisten.</p>
+        <a class="detail-contact-button" href="biler.html">Se alle biler</a>
+      </div>
+    `;
+    return;
+  }
+
+  const images = Array.isArray(car.images) ? car.images : (car.image ? [car.image] : []);
+  const specifications = [
+    { label: 'Årgang', value: car.year || '' },
+    { label: 'Kilometerstand', value: car.mileage ? `${new Intl.NumberFormat('da-DK').format(car.mileage)} km` : '' },
+    { label: 'Brændstof', value: getVehicleFuelLabel(car.fuel) },
+    { label: 'Gearkasse', value: car.transmission === 'aut' ? 'Automatgear' : car.transmission === 'man' ? 'Manuel' : '' },
+    { label: 'Biltype', value: getVehicleTypeLabel(car.type) },
+    { label: 'Antal døre', value: car.doors ? `${car.doors.replace('door-', '')} døre` : '' }
+  ].filter((item) => item.value);
+  const title = `${car.brand} ${car.model}`;
+  const contactPhone = siteConfig.contactPhone || defaultConfig.contactPhone;
+  const fallbackPhoneHref = `tel:${contactPhone.replace(/\s+/g, '').replace('+', '')}`;
+  const configuredPhoneHref = siteConfig.contactPhoneHref || defaultConfig.contactPhoneHref;
+  const contactPhoneHref = /^tel:/i.test(configuredPhoneHref) ? configuredPhoneHref : fallbackPhoneHref;
+  document.title = `${title} – Krathmand`;
+
+  detail.innerHTML = `
+    <article class="vehicle-detail">
+      <div class="vehicle-detail-layout">
+        <section class="vehicle-gallery" aria-label="Billeder af ${escapeHtml(title)}">
+          ${images.length
+            ? `
+              <div class="vehicle-gallery-stage">
+                <button class="vehicle-main-image" id="vehicleMainImage" type="button" aria-label="Åbn billede 1 i stor visning">
+                  <img src="${escapeHtml(images[0])}" alt="${escapeHtml(title)} – billede 1" />
+                  <span class="image-zoom-hint">Klik for stor visning</span>
+                </button>
+                ${images.length > 1 ? `
+                  <button class="gallery-arrow gallery-previous" id="previousVehicleImage" type="button" aria-label="Vis forrige billede">‹</button>
+                  <button class="gallery-arrow gallery-next" id="nextVehicleImage" type="button" aria-label="Vis næste billede">›</button>
+                  <span class="gallery-count" id="vehicleImageCount" aria-live="polite">1 / ${images.length}</span>
+                ` : ''}
+              </div>
+              ${images.length > 1 ? `
+                <div class="vehicle-thumbnails" aria-label="Vælg billede">
+                  ${images.map((image, index) => `
+                    <button class="vehicle-thumbnail${index === 0 ? ' is-active' : ''}" type="button" data-image-index="${index}" aria-label="Vis billede ${index + 1}" aria-current="${index === 0 ? 'true' : 'false'}">
+                      <img src="${escapeHtml(image)}" alt="" />
+                    </button>
+                  `).join('')}
+                </div>
+              ` : ''}
+            `
+            : `
+              <div class="vehicle-image-empty" role="status">
+                <span aria-hidden="true">▧</span>
+                <p>Der er ikke billeder af denne bil i BilInfo-feedet lige nu.</p>
+              </div>
+            `}
+        </section>
+
+        <section class="vehicle-summary">
+          <p class="small-kicker">${escapeHtml(car.badge || 'BilInfo')}</p>
+          <h1>${escapeHtml(title)}</h1>
+          <p class="vehicle-price">${formatPrice(car.price)}</p>
+          <p class="vehicle-price-caption">Kontantpris</p>
+          <dl class="vehicle-specifications">
+            ${specifications.map(({ label, value }) => `
+              <div>
+                <dt>${escapeHtml(label)}</dt>
+                <dd>${escapeHtml(value)}</dd>
+              </div>
+            `).join('')}
+          </dl>
+        </section>
+      </div>
+
+      <section class="vehicle-contact" id="kontakt-os">
+        <div>
+          <p class="small-kicker">Interesseret?</p>
+          <h2>Kontakt os om bilen</h2>
+          <p data-config="contactSectionText">${escapeHtml(siteConfig.contactSectionText || defaultConfig.contactSectionText)}</p>
+        </div>
+        <a class="detail-contact-button" href="${escapeHtml(contactPhoneHref)}">
+          Ring til os <span>${escapeHtml(contactPhone)}</span>
+        </a>
+      </section>
+    </article>
+  `;
+
+  if (!images.length) return;
+
+  let currentImageIndex = 0;
+  const imageViewer = document.getElementById('imageViewer');
+  const mainImageButton = document.getElementById('vehicleMainImage');
+  const mainImage = mainImageButton.querySelector('img');
+  const viewerImage = document.getElementById('imageViewerImage');
+  const viewerCaption = document.getElementById('imageViewerCaption');
+  const previousButton = document.getElementById('previousVehicleImage');
+  const nextButton = document.getElementById('nextVehicleImage');
+  const viewerPreviousButton = document.getElementById('viewerPreviousImage');
+  const viewerNextButton = document.getElementById('viewerNextImage');
+
+  function showImage(index) {
+    currentImageIndex = (index + images.length) % images.length;
+    const alt = `${title} – billede ${currentImageIndex + 1}`;
+    mainImage.src = images[currentImageIndex];
+    mainImage.alt = alt;
+    mainImageButton.setAttribute('aria-label', `Åbn billede ${currentImageIndex + 1} i stor visning`);
+    viewerImage.src = images[currentImageIndex];
+    viewerImage.alt = alt;
+    viewerCaption.textContent = `${title} – billede ${currentImageIndex + 1} af ${images.length}`;
+    const count = document.getElementById('vehicleImageCount');
+    if (count) count.textContent = `${currentImageIndex + 1} / ${images.length}`;
+    document.querySelectorAll('.vehicle-thumbnail').forEach((thumbnail, thumbnailIndex) => {
+      const active = thumbnailIndex === currentImageIndex;
+      thumbnail.classList.toggle('is-active', active);
+      thumbnail.setAttribute('aria-current', String(active));
+    });
+  }
+
+  showImage(0);
+  mainImageButton.addEventListener('click', () => imageViewer.showModal());
+  document.querySelectorAll('.vehicle-thumbnail').forEach((thumbnail) => {
+    thumbnail.addEventListener('click', () => showImage(Number(thumbnail.dataset.imageIndex)));
+  });
+  if (previousButton) previousButton.addEventListener('click', () => showImage(currentImageIndex - 1));
+  if (nextButton) nextButton.addEventListener('click', () => showImage(currentImageIndex + 1));
+
+  document.getElementById('closeImageViewer').addEventListener('click', () => imageViewer.close());
+  viewerPreviousButton.addEventListener('click', () => showImage(currentImageIndex - 1));
+  viewerNextButton.addEventListener('click', () => showImage(currentImageIndex + 1));
+  viewerPreviousButton.hidden = images.length < 2;
+  viewerNextButton.hidden = images.length < 2;
+  imageViewer.addEventListener('click', (event) => {
+    if (event.target === imageViewer) imageViewer.close();
+  });
+  imageViewer.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    imageViewer.close();
+  });
+  imageViewer.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      imageViewer.close();
+      return;
+    }
+    if (event.key === 'ArrowLeft' && images.length > 1) showImage(currentImageIndex - 1);
+    if (event.key === 'ArrowRight' && images.length > 1) showImage(currentImageIndex + 1);
+  });
+}
+
+function initializeFilterAccordions() {
+  document.querySelectorAll('.filter-group').forEach((group) => {
+    const heading = group.querySelector('p');
+    const options = group.querySelector('.filter-options');
+    if (!heading || !options) return;
+
+    const toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'filter-group-toggle';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML = `<span>${heading.textContent.trim()}</span><span class="chevron">▾</span>`;
+
+    group.insertBefore(toggle, heading);
+    heading.remove();
+    options.hidden = true;
+
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!isExpanded));
+      options.hidden = isExpanded;
+      toggle.classList.toggle('is-open', !isExpanded);
+    });
+  });
+}
+
+function initializeFilters() {
+  initializeFilterAccordions();
+
+  const brandSelect = document.getElementById('brandSelect');
+  const modelSelect = document.getElementById('modelSelect');
+  const priceSelect = document.getElementById('priceSelect');
+  const sortSelect = document.getElementById('sortSelect');
+  const searchInput = document.getElementById('searchInput');
+
+  document.querySelectorAll('.filter-options input[type="checkbox"]').forEach((checkbox) => {
+    checkbox.dataset.filterGroup = checkbox.closest('.filter-group')?.dataset.filterGroup || 'fuel';
+    checkbox.addEventListener('change', () => {
+      readSelectedFilters();
+      renderCars();
+    });
+  });
+
+  if (brandSelect) {
+    brandSelect.addEventListener('change', (event) => {
+      appState.selectedBrand = event.target.value;
+      appState.selectedModel = 'all';
+      populateModelOptions();
+      renderCars();
+    });
+  }
+
+  if (modelSelect) {
+    modelSelect.addEventListener('change', (event) => {
+      appState.selectedModel = event.target.value;
+      renderCars();
+    });
+  }
+
+  if (priceSelect) {
+    priceSelect.addEventListener('change', (event) => {
+      appState.selectedPrice = event.target.value;
+      renderCars();
+    });
+  }
+
+  if (sortSelect) {
+    sortSelect.addEventListener('change', (event) => {
+      appState.selectedSort = event.target.value;
+      renderCars();
+    });
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (event) => {
+      appState.query = event.target.value;
+      renderCars();
+    });
+  }
+
+  populateBrandOptions();
+  populateModelOptions();
+  readSelectedFilters();
+}
+
 function initializeTheme() {
-  const savedTheme = localStorage.getItem('kurt_theme') || 'light';
+  const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
   document.body.classList.toggle('dark-theme', savedTheme === 'dark');
   const toggle = document.getElementById('themeToggle');
   if (!toggle) return;
 
   const icon = toggle.querySelector('.toggle-icon');
-  const text = toggle.querySelector('.toggle-text');
-  if (icon) icon.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
-  if (text) text.textContent = savedTheme === 'dark' ? 'Mørk' : 'Lys';
+  if (!icon) return;
+
+  const sunSvg = `
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 3.5a1 1 0 0 1 1 1V5a1 1 0 1 1-2 0v-.5a1 1 0 0 1 1-1Zm0 15a1 1 0 0 1 1 1V19a1 1 0 1 1-2 0v-.5a1 1 0 0 1 1-1Zm8.5-6.5a1 1 0 0 1 0 2h-.5a1 1 0 1 1 0-2h.5ZM5 12a1 1 0 0 1 0 2H4.5a1 1 0 0 1 0-2H5Zm12.85-5.35a1 1 0 0 1 1.4 0l.35.35a1 1 0 1 1-1.4 1.4l-.35-.35a1 1 0 0 1 0-1.4ZM5.15 17.15a1 1 0 0 1 1.4 0l.35.35a1 1 0 1 1-1.4 1.4l-.35-.35a1 1 0 0 1 0-1.4ZM18.85 17.15a1 1 0 0 1 0 1.4l-.35.35a1 1 0 0 1-1.4-1.4l.35-.35a1 1 0 0 1 1.4 0ZM5.15 6.85a1 1 0 0 1 0 1.4L4.8 8.6a1 1 0 1 1-1.4-1.4l.35-.35a1 1 0 0 1 1.4 0ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" fill="currentColor"/>
+    </svg>
+  `;
+  const moonSvg = `
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.3 14.8A7.95 7.95 0 0 1 9.2 3.7a8.5 8.5 0 1 0 11.1 11.1Z" fill="currentColor"/>
+    </svg>
+  `;
+
+  icon.innerHTML = savedTheme === 'dark' ? moonSvg : sunSvg;
 
   toggle.addEventListener('click', () => {
     const dark = !document.body.classList.contains('dark-theme');
     document.body.classList.toggle('dark-theme', dark);
-    localStorage.setItem('kurt_theme', dark ? 'dark' : 'light');
-    if (icon) icon.textContent = dark ? '🌙' : '☀️';
-    if (text) text.textContent = dark ? 'Mørk' : 'Lys';
+    localStorage.setItem(THEME_KEY, dark ? 'dark' : 'light');
+    icon.innerHTML = dark ? moonSvg : sunSvg;
   });
 }
 
-async function loadSharedPartials() {
-  const headerHost = document.getElementById('siteHeader');
-  const footerHost = document.getElementById('siteFooter');
-
-  if (headerHost) {
-    try {
-      const res = await fetch('/partials/header.html');
-      headerHost.innerHTML = await res.text();
-    } catch (error) {
-      console.warn('Header partial failed to load.', error);
-    }
-  }
-
-  if (footerHost) {
-    try {
-      const res = await fetch('/partials/footer.html');
-      footerHost.innerHTML = await res.text();
-    } catch (error) {
-      console.warn('Footer partial failed to load.', error);
-    }
-  }
-
-  const path = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('.main-nav a');
-
-  navLinks.forEach((link) => {
-    const href = link.getAttribute('href') || '';
-    const target = href.split('/').pop() || 'index.html';
-    const active =
-      (path === '' || path === 'index.html') && target === 'index.html' ||
-      (path === 'biler.html' && target === 'biler.html') ||
-      (path === 'om-os-kontakt.html' && target === 'om-os-kontakt.html') ||
-      (path === 'admin.html' && target === 'admin.html');
-
-    link.classList.toggle('active', active);
+function initializeMailForm() {
+  const form = document.getElementById('contactForm');
+  if (!form) return;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = document.getElementById('senderName')?.value || '';
+    const email = document.getElementById('senderEmail')?.value || '';
+    const subject = document.getElementById('mailSubject')?.value || 'Kontakt';
+    const body = document.getElementById('mailBody')?.value || '';
+    const config = getCurrentConfig();
+    window.location.href = `mailto:${config.contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Navn: ${name}\nEmail: ${email}\n\n${body}`)}`;
   });
-
-  const homeLink = document.querySelector('.nav-home');
-  if (homeLink) {
-    homeLink.classList.toggle('active', path === '' || path === 'index.html');
-  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadSharedPartials();
+  await loadPartials();
+  await loadConfig();
   applyConfig();
   initializeTheme();
+
+  const bilInfoCars = await fetchBilInfoCars();
+  if (bilInfoCars.length) {
+    cars = bilInfoCars;
+  }
+
+  if (pageMode === 'car-detail') {
+    renderVehicleDetail();
+    return;
+  }
+
+  initializeFilters();
   renderCars();
+  initializeMailForm();
 });

@@ -141,6 +141,28 @@ function applyConfig() {
     el.textContent = appConfig.siteTitle;
   });
 
+  document.querySelectorAll('[data-config]').forEach((el) => {
+    const key = el.dataset.config;
+    if (key === 'phoneHref') {
+      el.href = appConfig.contactPhoneHref || `tel:${appConfig.contactPhone.replace(/\s+/g, '').replace('+', '')}`;
+    } else if (key === 'emailHref') {
+      el.href = appConfig.contactEmailHref || `mailto:${appConfig.contactEmail}`;
+    } else if (key === 'logoUrl' && el.tagName === 'IMG') {
+      el.src = appConfig.logoUrl;
+    } else if (key === 'ownerPhoto' && el.tagName === 'IMG') {
+      el.src = appConfig.ownerPhoto;
+    } else if (Object.prototype.hasOwnProperty.call(appConfig, key)) {
+      el.textContent = appConfig[key];
+    }
+  });
+
+  document.querySelectorAll('[data-config-value]').forEach((el) => {
+    const key = el.dataset.configValue;
+    if (Object.prototype.hasOwnProperty.call(appConfig, key)) {
+      el.textContent = appConfig[key];
+    }
+  });
+
   const logoImg = document.querySelector('.brand img');
   if (logoImg) logoImg.src = appConfig.logoUrl;
 }

@@ -204,16 +204,17 @@ function normalizeBilInfoText(node) {
 }
 
 function normalizeFuel(value) {
-  const normalized = value.toLowerCase();
-  if (normalized.includes('el')) return 'electric';
+  const normalized = (value || '').trim().toLowerCase();
   if (normalized.includes('diesel')) return 'diesel';
   if (normalized.includes('hybrid')) return 'hybrid';
+  if (normalized === 'el' || normalized.includes('elbil') || normalized.includes('electric') || normalized.includes('elektrisk')) return 'electric';
   return 'benzin';
 }
 
 function normalizeTransmission(value) {
-  const normalized = (value || '').toUpperCase();
-  if (normalized.includes('A')) return 'aut';
+  const normalized = (value || '').trim().toLowerCase();
+  if (normalized === 'a' || normalized.includes('automat') || normalized.includes('automatic') || normalized === 'aut' || /\baut\./.test(normalized)) return 'aut';
+  if (normalized === 'm' || normalized.includes('manuel') || normalized.includes('manual') || normalized === 'man' || /\bman\./.test(normalized)) return 'man';
   return 'man';
 }
 
@@ -250,15 +251,20 @@ function normalizeBilInfoVehicle(vehicleNode, index) {
   const variant = getText('Variant');
   const year = Number.parseInt(getText('Year'), 10) || 0;
   const mileage = Number.parseInt((getText('Mileage') || '').replace(/[^0-9]/g, ''), 10) || 0;
-  const price = Number.parseInt((getText('NewPrice') || getText('Price') || '0').replace(/[^0-9]/g, ''), 10) || 0;
+  const price = Number.parseInt((getText('Price') || getText('CashPrice') || getText('NewPrice') || '0').replace(/[^0-9]/g, ''), 10) || 0;
   const fuel = normalizeFuel(getText('Propellant'));
   const transmission = normalizeTransmission(getText('GearType'));
   const type = normalizeVehicleType(getText('Type'));
   const doorCode = normalizeDoors(getText('NumberOfDoors'));
-  const image = normalizeImage(getText('ImageUrl') || getText('Image') || getText('MainImageUrl'), make, model);
+  const image = normalizeImage(
+    getText('ImageUrl') || getText('MainImageUrl') || getText('Image') ||
+      getText('Pictures > Picture') || getText('Pictures > string') || getText('Picture') || getText('Pictures'),
+    make,
+    model
+  );
 
   return {
-    id: `bilinfo-${getText('Id') || index + 1}`,
+    id: `bilinfo-${getText('VehicleId') || getText('VehicleSourceId') || getText('Id') || index + 1}`,
     brand: make,
     model: variant ? `${model} ${variant}` : model,
     year,
@@ -296,21 +302,10 @@ async function fetchLocalBilInfoXml() {
 }
 
 async function fetchLiveBilInfoXml() {
-  const endpoint = 'https://gw.bilinfo.net/listingapi/api/export';
-  const authHeader = 'Basic ' + btoa('demo:ocfB6XzF73');
-
-  const response = await fetch(endpoint, {
-    method: 'GET',
-    headers: {
-      Authorization: authHeader,
-      Accept: 'application/xml,text/xml,application/json;q=0.9,*/*;q=0.8'
-    }
-  });
-
+  const response = await fetch('/api/cars.xml', { cache: 'no-store' });
   if (!response.ok) {
-    throw new Error(`BilInfo request failed with status ${response.status}`);
+    throw new Error(`Vehicle inventory request failed with status ${response.status}`);
   }
-
   return response.text();
 }
 

@@ -4,12 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Krathmand</title>
-    <meta name="description" content="Krathmand – kvalitetsbiler med fokus på personlig service og et velholdt lager." />
-    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
-    <link rel="stylesheet" href="/styles.css" />
+    <meta
+      name="description"
+      content="Krathmand – kvalitetsbiler med fokus på personlig service og et velholdt lager."
+    />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
   </head>
   <body data-page="home">
-    <div id="siteHeader"></div>
+    <div id="site-header"></div>
+
     <main id="top">
       <section class="hero">
         <div class="hero-image"></div>
@@ -18,11 +23,15 @@
         <div class="container hero-inner single-column">
           <div class="hero-copy">
             <p class="eyebrow">Kvalitetsbiler til enhver tid</p>
-            <h1 id="homeHeroTitle">Find den rette bil hos Krathmand</h1>
-            <p id="homeHeroText">Krathmand er din leverandør af kvalitetsbiler i alle aldre.</p>
+            <h1 data-config="homeHeroTitle">Find den rette bil hos Krathmand</h1>
+            <p data-config="homeHeroText">
+              Krathmand er din leverandør af kvalitetsbiler i alle aldre. Vi tilbyder et
+              velholdt udvalg af brugte biler og personlig service med fokus på ærlighed,
+              kvalitet og en god oplevelse fra første kontakt til købesummering.
+            </p>
             <div class="cta-row">
-              <a href="/biler.html" class="primary-btn">Se biler</a>
-              <a href="/om-os-kontakt.html" class="secondary-btn">Om os &amp; kontakt</a>
+              <a href="biler.html" class="primary-btn">Se biler</a>
+              <a href="om-os-kontakt.html" class="secondary-btn">Om os &amp; kontakt</a>
             </div>
           </div>
         </div>
@@ -64,8 +73,12 @@
         <div class="container story-grid">
           <div class="story-copy">
             <p class="small-kicker">Om os &amp; kontakt</p>
-            <h2 id="homeAboutHeading">Vi har altid ca. 25 biler på lager</h2>
-            <p id="homeAboutText">Krathmand er kendt for at kombinere mange års erfaring med personlig service.</p>
+            <h2 data-config="homeAboutHeading">Vi har altid ca. 25 biler på lager</h2>
+            <p data-config="homeAboutText">
+              Krathmand er kendt for at kombinere mange års erfaring med personlig service,
+              som gør det nemt at finde den rigtige bil. Vi arbejder med et bredt udvalg af
+              kvalitetsbiler og hjælper dig fra første spørgsmål til den afsluttende aftale.
+            </p>
           </div>
 
           <div class="story-image">
@@ -82,16 +95,24 @@
             </div>
             <div class="feature-copy">
               <p class="small-kicker">Service</p>
-              <h3 id="serviceTitle1">Lav gerne en aftale i forvejen</h3>
-              <p id="serviceText1">Det er altid en god idé at ringe i forvejen.</p>
+              <h3 data-config="serviceTitle1">Lav gerne en aftale i forvejen</h3>
+              <p data-config="serviceText1">
+                Det er altid en god idé at ringe i forvejen, inden du besøger os. Då vi kan
+                sikre, at vi har åbent, er klar til at tage imod dig og kan give dig tiden
+                og den service, du fortjener.
+              </p>
             </div>
           </article>
 
           <article class="feature-card">
             <div class="feature-copy">
               <p class="small-kicker">Personlig rådgivning</p>
-              <h3 id="serviceTitle2">Vi guider dig til den rigtige bil</h3>
-              <p id="serviceText2">Uanset om du vil have en lille bybil eller en familiebil, vi hjælper dig.</p>
+              <h3 data-config="serviceTitle2">Vi guider dig til den rigtige bil</h3>
+              <p data-config="serviceText2">
+                Uanset om du vil have en lille bybil, en praktisk familiebil, en meget
+                økonomisk diesel eller en moderne elbil, så hjælper vi med at finde en
+                løsning, der passer til dit behov.
+              </p>
             </div>
             <div class="feature-image">
               <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Bilsalg rådgivning" />
@@ -104,33 +125,38 @@
         <div class="container contact-layout">
           <div class="contact-copy-block">
             <p class="small-kicker">Har du spørgsmål?</p>
-            <h2 id="contactSectionTitle">Kontakt os</h2>
-            <p id="contactSectionText">Vi er altid klar til at hjælpe dig med at finde den rigtige bil.</p>
+            <h2 data-config="contactSectionTitle">Kontakt os</h2>
+            <p data-config="contactSectionText">
+              Vi er altid klar til at hjælpe dig med at finde den rigtige bil til dig og
+              din hverdag.
+            </p>
           </div>
 
           <div class="contact-card">
             <div class="contact-row">
               <strong>Telefon</strong>
-              <a id="contactPhoneLink" href="tel:+4586628545">+45 86 62 85 45</a>
+              <a data-config="phoneHref" href="tel:+4586628545" data-config-value="contactPhone">+45 86 62 85 45</a>
             </div>
             <div class="contact-row">
               <strong>E-mail</strong>
-              <a id="contactEmailLink" href="mailto:kurt@krathmand.dk">kurt@krathmand.dk</a>
+              <a data-config="emailHref" href="mailto:kurt@krathmand.dk" data-config-value="contactEmail">kurt@krathmand.dk</a>
             </div>
             <div class="contact-row">
               <strong>Adresse</strong>
-              <span id="contactAddress">Fabrikvej 1 8800 Viborg</span>
+              <span data-config="contactAddress">Fabrikvej 1 8800 Viborg</span>
             </div>
             <div class="contact-row">
               <strong>Åbningstider</strong>
-              <span id="contactHours">Efter aftale</span>
+              <span data-config="contactHours">Efter aftale</span>
             </div>
           </div>
         </div>
       </section>
-    </main>
-    <div id="siteFooter"></div>
 
-    <script src="/app.js"></script>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="app.js"></script>
   </body>
 </html>

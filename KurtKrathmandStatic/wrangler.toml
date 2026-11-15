@@ -1,0 +1,19 @@
+name = "krathmand-static"
+main = "worker/index.mjs"
+compatibility_date = "2026-11-14"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/admin", "/admin/*"]
+
+[triggers]
+crons = ["0 * * * *"]
+
+[[kv_namespaces]]
+binding = "SITE_DATA"
+id = "f07cf5ecc2814df88b35d41fd3444748"
+
+[vars]
+CF_ACCESS_TEAM_DOMAIN = "spring-wood-b611.cloudflareaccess.com"
+CF_ACCESS_AUD = "8f89e1ceb0109fb972387c79d8d1dd02b86be2259975ce31b13102b83fb814ed"

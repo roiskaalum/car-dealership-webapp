@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bil – Krathmand</title>
+    <meta name="description" content="Se detaljer og billeder af bilen hos Krathmand." />
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="config.js"></script>
+  </head>
+  <body data-page="car-detail">
+    <div id="site-header"></div>
+
+    <main>
+      <section class="vehicle-detail-section">
+        <div class="container">
+          <a class="back-link" href="biler.html">&larr; Tilbage til alle biler</a>
+          <div id="vehicleDetail" aria-live="polite">
+            <p class="empty-state">Indlæser biloplysninger...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="image-viewer" id="imageViewer" aria-label="Billedfremviser">
+      <div class="image-viewer-content">
+        <button class="image-viewer-close" id="closeImageViewer" type="button" aria-label="Luk billedvisning">&times;</button>
+        <button class="image-viewer-arrow image-viewer-previous" id="viewerPreviousImage" type="button" aria-label="Vis forrige billede">&lsaquo;</button>
+        <img id="imageViewerImage" src="" alt="" />
+        <button class="image-viewer-arrow image-viewer-next" id="viewerNextImage" type="button" aria-label="Vis næste billede">&rsaquo;</button>
+        <p id="imageViewerCaption" aria-live="polite"></p>
+      </div>
+    </dialog>
+
+    <div id="site-footer"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

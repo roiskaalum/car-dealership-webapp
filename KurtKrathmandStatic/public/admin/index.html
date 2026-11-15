@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Privat kontrolpanel – Krathmand</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: #172033;
+        background: #f3f6fa;
+        font-synthesis: none;
+      }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      header { padding: 28px max(24px, calc((100% - 1040px) / 2)); color: white; background: #123f79; }
+      header p { max-width: 720px; margin: 8px 0 0; color: #dceaff; line-height: 1.55; }
+      main { max-width: 1040px; margin: 28px auto; padding: 0 20px 48px; }
+      form { display: grid; gap: 20px; }
+      section { padding: 24px; border: 1px solid #dce3ed; border-radius: 14px; background: white; box-shadow: 0 4px 16px #13294b0a; }
+      h1 { margin: 0; font-size: clamp(1.7rem, 4vw, 2.4rem); }
+      h2 { margin: 0 0 8px; font-size: 1.2rem; }
+      .intro, .help { color: #526179; line-height: 1.55; }
+      .intro { margin: 0 0 18px; }
+      .help { margin: 0 0 16px; font-size: .94rem; }
+      .help.error { color: #a12622; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+      .content-group { min-width: 0; margin: 0; padding: 16px; border: 1px solid #e1e7f0; border-radius: 10px; background: #f8fafc; }
+      .content-group legend { padding: 0 6px; color: #263a59; font-weight: 700; }
+      .field { display: grid; align-content: start; gap: 7px; }
+      label { font-weight: 650; }
+      input, textarea, button { font: inherit; }
+      input:not([type="color"]), textarea { width: 100%; padding: 11px 12px; border: 1px solid #c6d0df; border-radius: 8px; color: inherit; background: #fff; }
+      .checkbox-field { display: flex; align-items: flex-start; gap: 10px; }
+      .checkbox-field input[type="checkbox"] { width: 1.15rem; height: 1.15rem; margin: 3px 0 0; }
+      select { width: 100%; padding: 11px 12px; border: 1px solid #c6d0df; border-radius: 8px; color: inherit; background: #fff; font: inherit; }
+      input[type="color"] { width: 64px; height: 42px; padding: 3px; border: 1px solid #c6d0df; border-radius: 8px; background: #fff; }
+      textarea { min-height: 108px; resize: vertical; }
+      small { color: #65738a; line-height: 1.45; }
+      .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      button { min-height: 42px; padding: 9px 16px; border: 0; border-radius: 8px; color: white; background: #1458a6; font-weight: 650; cursor: pointer; }
+      button.secondary { border: 1px solid #bac7d8; color: #24324a; background: white; }
+      button:disabled { opacity: .6; cursor: wait; }
+      .status { min-height: 1.5em; margin: 12px 0 0; color: #245c39; }
+      .status.error { color: #a12622; }
+      .private-note { padding: 12px 14px; border-left: 4px solid #3b82f6; border-radius: 4px; background: #eef5ff; color: #31435f; line-height: 1.5; }
+      @media (max-width: 600px) {
+        header { padding: 24px 20px; }
+        section { padding: 18px; }
+      }
+    </style>
+    <script src="./admin.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>Krathmand – kontrolpanel</h1>
+      <p>Her kan du opdatere hjemmesidens tekster, billeder, kontaktoplysninger og farver. Ændringer gemmes med det samme og kræver ikke en ny hjemmesideudgivelse.</p>
+    </header>
+    <main>
+      <p class="private-note">Dette kontrolpanel er kun til godkendte brugere. Hvis du ikke kan åbne det, skal kontoadministratoren tilføje din e-mail i Cloudflare Access.</p>
+
+      <form id="configForm">
+        <section>
+          <h2>Firmanavn, logo og kontakt</h2>
+          <p class="intro">Disse oplysninger vises i sidens fælles top, bund og kontaktområder.</p>
+          <div class="grid">
+            <div class="field">
+              <label for="siteTitle">Navnet, der vises på hjemmesiden</label>
+              <input id="siteTitle" name="siteTitle" type="text" />
+            </div>
+            <div class="field">
+              <label for="logoUrl">Logo-billede</label>
+              <input id="logoUrl" name="logoUrl" type="text" />
+              <small>Indsæt et sikkert https-link til et billede eller en sti som /images/logo.jpg.</small>
+            </div>
+            <div class="field">
+              <label for="contactPhone">Telefonnummer</label>
+              <input id="contactPhone" name="contactPhone" type="text" />
+            </div>
+            <div class="field">
+              <label for="contactEmail">Kontakt-e-mail</label>
+              <input id="contactEmail" name="contactEmail" type="email" />
+            </div>
+            <div class="field">
+              <label for="contactAddress">Adresse</label>
+              <input id="contactAddress" name="contactAddress" type="text" />
+            </div>
+            <div class="field">
+              <label for="contactHours">Åbningstider</label>
+              <input id="contactHours" name="contactHours" type="text" />
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Farver</h2>
+          <p class="intro">Vælg de vigtigste farver. Den mørke farve bruges, når besøgende vælger sidens mørke tema.</p>
+          <div class="grid">
+            <div class="field"><label for="primary">Primær farve – knapper og fremhævelser</label><input id="primary" name="primary" type="color" /></div>
+            <div class="field"><label for="accent">Sekundær farve – detaljer og ikoner</label><input id="accent" name="accent" type="color" /></div>
+            <div class="field"><label for="darkPrimary">Primær farve i mørkt tema</label><input id="darkPrimary" name="darkPrimary" type="color" /></div>
+            <div class="field"><label for="darkAccent">Sekundær farve i mørkt tema</label><input id="darkAccent" name="darkAccent" type="color" /></div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Forsidens indhold</h2>
+          <p class="intro">Redigér indholdet i de grupper, som det vises på forsiden.</p>
+          <div class="grid">
+            <fieldset class="content-group">
+              <legend>Hero-område</legend>
+              <div class="grid">
+                <div class="field"><label for="homeHeroTitle">Stor overskrift</label><input id="homeHeroTitle" name="homeHeroTitle" type="text" /></div>
+                <div class="field"><label for="homeHeroText">Introduktion</label><textarea id="homeHeroText" name="homeHeroText"></textarea></div>
+              </div>
+            </fieldset>
+            <fieldset class="content-group">
+              <legend>Om virksomheden</legend>
+              <div class="grid">
+                <div class="field"><label for="homeAboutHeading">Overskrift</label><input id="homeAboutHeading" name="homeAboutHeading" type="text" /></div>
+                <div class="field"><label for="homeAboutText">Beskrivelse</label><textarea id="homeAboutText" name="homeAboutText"></textarea></div>
+              </div>
+            </fieldset>
+            <fieldset class="content-group">
+              <legend>Service 1</legend>
+              <div class="grid">
+                <div class="field"><label for="serviceTitle1">Overskrift</label><input id="serviceTitle1" name="serviceTitle1" type="text" /></div>
+                <div class="field"><label for="serviceText1">Beskrivelse</label><textarea id="serviceText1" name="serviceText1"></textarea></div>
+              </div>
+            </fieldset>
+            <fieldset class="content-group">
+              <legend>Service 2</legend>
+              <div class="grid">
+                <div class="field"><label for="serviceTitle2">Overskrift</label><input id="serviceTitle2" name="serviceTitle2" type="text" /></div>
+                <div class="field"><label for="serviceText2">Beskrivelse</label><textarea id="serviceText2" name="serviceText2"></textarea></div>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+
+        <section>
+          <h2>Om virksomheden og bilsiden</h2>
+          <p class="intro">Profiloplysninger og indhold grupperes efter den side, hvor de vises.</p>
+          <div class="grid">
+            <div class="field"><label for="ownerName">Navn på kontaktpersonen</label><input id="ownerName" name="ownerName" type="text" /></div>
+            <div class="field">
+              <label for="ownerPhoto">Profilbillede</label>
+              <input id="ownerPhoto" name="ownerPhoto" type="text" />
+              <small>Indsæt et sikkert https-link til et billede.</small>
+            </div>
+          </div>
+          <div class="grid" style="margin-top:16px">
+            <fieldset class="content-group">
+              <legend>Om os-siden</legend>
+              <div class="grid">
+                <div class="field"><label for="aboutHeading">Overskrift</label><input id="aboutHeading" name="aboutHeading" type="text" /></div>
+                <div class="field"><label for="aboutText">Beskrivelse</label><textarea id="aboutText" name="aboutText"></textarea></div>
+              </div>
+            </fieldset>
+            <fieldset class="content-group">
+              <legend>Biloversigten</legend>
+              <div class="grid">
+                <div class="field"><label for="bannerTitle">Overskrift over bilerne</label><input id="bannerTitle" name="bannerTitle" type="text" /></div>
+                <div class="field"><label for="bannerText">Introduktion til bilerne</label><textarea id="bannerText" name="bannerText"></textarea></div>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+
+        <section>
+          <h2>BilInfo – bilernes lager</h2>
+          <p class="intro">Indtast BilInfo API-brugernavn og adgangskode. De sendes krypteret til hjemmesidens Worker. Den gemte adgangskode kan ikke vises igen; indtast en ny for at udskifte den.</p>
+          <p id="credentialStatus" class="help" role="status" aria-live="polite">Kontrollerer opsætning…</p>
+          <div class="grid">
+            <div class="field"><label for="bilinfoUsername">BilInfo API-brugernavn</label><input id="bilinfoUsername" type="text" autocomplete="username" /></div>
+            <div class="field"><label for="bilinfoPassword">BilInfo API-adgangskode</label><input id="bilinfoPassword" type="password" autocomplete="new-password" /></div>
+          </div>
+          <div class="actions" style="margin-top:16px">
+            <button id="saveCredentialsButton" type="button">Gem BilInfo-login</button>
+            <button id="refreshInventoryButton" class="secondary" type="button">Hent biler fra BilInfo nu</button>
+          </div>
+          <p class="help">Når du ændrer BilInfo-login, skal du vælge “Hent biler fra BilInfo nu” for at kontrollere login og opdatere KV-lageret. Besøgende får derefter den gemte kopi; deres besøg kalder ikke BilInfo.</p>
+          <fieldset class="content-group" style="margin-top:20px">
+            <legend>Automatiske opdateringer</legend>
+            <p class="help">Når automatisk opdatering er slået til, kontrollerer Workerens timeplan, om lageret skal hentes. Intervallet måles fra seneste vellykkede opdatering. En fejl erstatter ikke den nuværende lagerkopi.</p>
+            <div class="grid">
+              <div class="field">
+                <label class="checkbox-field" for="autoRefreshEnabled">
+                  <input id="autoRefreshEnabled" type="checkbox" />
+                  <span>Hent automatisk fra BilInfo</span>
+                </label>
+                <small>Slå fra for kun at hente, når du selv vælger den manuelle knap.</small>
+              </div>
+              <div class="field">
+                <label for="inventoryIntervalHours">Opdateringsinterval</label>
+                <select id="inventoryIntervalHours">
+                  <option value="1">Hver time</option>
+                  <option value="6">Hver 6. time</option>
+                  <option value="12">Hver 12. time</option>
+                  <option value="24">Hver dag</option>
+                  <option value="168">Hver uge</option>
+                </select>
+                <small>Planlagte tidspunkter kontrolleres én gang i timen (UTC).</small>
+              </div>
+            </div>
+            <div class="actions" style="margin-top:16px">
+              <button id="saveInventorySettingsButton" class="secondary" type="button">Gem opdateringsplan</button>
+            </div>
+            <p id="inventoryScheduleStatus" class="help" role="status" aria-live="polite">Kontrollerer opdateringsplan…</p>
+          </fieldset>
+        </section>
+
+        <section>
+          <h2>Gem hjemmesideændringer</h2>
+          <p class="intro">Ændringer nedenfor påvirker den offentlige hjemmeside efter lagringen. Du behøver ikke udgive eller bygge hjemmesiden igen.</p>
+          <div class="actions">
+            <button id="saveConfigButton" type="submit">Gem hjemmesideændringer</button>
+            <button id="reloadConfigButton" class="secondary" type="button">Hent senest gemte ændringer</button>
+          </div>
+          <p id="adminStatus" class="status" role="status" aria-live="polite"></p>
+        </section>
+      </form>
+    </main>
+  </body>
+</html>
